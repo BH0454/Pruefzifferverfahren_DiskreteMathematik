@@ -8,14 +8,14 @@
 \end{tikzpicture}
 
 %% Firmen Logo
-\ifDocType{T3\_3100}{%
-	% kein Logo bei T3100
-}{%
-	\begin{tikzpicture}[remember picture, overlay]
-		\node[anchor=north west,inner xsep=50pt, inner ysep=25pt] at (current page.north west)
-		{\includegraphics[height=2cm]{resources/images/logo-company}};
-	\end{tikzpicture}
-}
+% \ifDocType{T3\_3100}{%
+% 	% kein Logo bei T3100
+% }{%
+% 	\begin{tikzpicture}[remember picture, overlay]
+% 		\node[anchor=north west,inner xsep=50pt, inner ysep=25pt] at (current page.north west)
+% 		{\includegraphics[height=2cm]{resources/images/logo-company}};
+% 	\end{tikzpicture}
+% }
 
 \enlargethispage{20mm}
 \begin{center}
@@ -40,14 +40,16 @@
 \begin{spacing}{1.2}
 	\begin{tabbing}
 		mmmmmmmmmmmmmmmmmmmmmmmmmm \= \kill
-		\textbf{Bearbeitungszeitraum} \> \documentPeriod \\
-		\textbf{Matrikelnummer, Kurs} \> \matriculationNumber, \course \\
+		%\textbf{Bearbeitungszeitraum} \> \documentPeriod \\
+		\textbf{Matrikelnummer, Kurs} \> \matriculationNumberOne, \course \\
+		\textbf{Matrikelnummer, Kurs} \> \matriculationNumberTwo, \course \\
+		\textbf{Matrikelnummer, Kurs} \> \matriculationNumberThree, \course \\
 		\ifDocType{T3\_3100}{%
 			% keine Firma bei T3100
 			\textbf{Betreuer der DHBW \locationUniversity} \> \evaluator
 		}{%
-			\textbf{Dualer Partner} \> \companyName, \companyLocation \\
-			\textbf{Betreuer des Dualen Partners} \> \tutor \\
+			%\textbf{Dualer Partner} \> \companyName, \companyLocation \\
+			%\textbf{Betreuer des Dualen Partners} \> \tutor \\
 		}%
 		\ifDocType{T3\_3300}{%
 			% DHBW Gutachter 

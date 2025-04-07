@@ -18,6 +18,7 @@
 \usepackage[T1]{fontenc}	            % Fontmap-Kodierung, diese wird von der pdflatex-Engine benötigt
 \usepackage[english, ngerman]{babel}	% Sprache
 
+
 %% ifDocType Befehlsdefinition
 \newcommand{\ifDocType}[3]{%
 	\IfStrEq{\documentType}{#1}{#2}{#3}%
@@ -38,19 +39,22 @@
 \usepackage{helvet}     % Arial like
 \renewcommand{\familydefault}{\sfdefault}
 
+%\usepackage{mathptmx} % Times New Roman font
+
 % Kopf- und Fußzeile
 \usepackage[headsepline=1pt, footsepline=1pt]{scrlayer-scrpage}
 \renewcommand*\chapterpagestyle{scrheadings}
 \pagestyle{scrheadings}
-\ifDocType{T3\_3100}{%
+%\ifDocType{T3\_3100}{%
     % kein Logo bei T3100
-}{%
-    \lohead{\includegraphics[height=1.5cm]{resources/images/logo-company.png}}
-}
+%}{%
+%    \lohead{\includegraphics[height=1.5cm]{resources/images/logo-company.png}}
+%}
 \chead{}
 \rohead{\includegraphics[height=1.6cm]{resources/images/logo-dhbw.png}}
 \newcommand{\documentTypePhrase}{%
 	\IfStrEqCase{\documentType}{%
+        {T0\_X000}{Hausarbeit}%
 		{T3\_1000}{Projektarbeit T1000}%
 		{T3\_2000}{Projektarbeit T2000}%
 		{T3\_2001}{Projektarbeit T2000, Teil 1}%
@@ -71,6 +75,7 @@
 %% Sonstige Pakete
 \usepackage{todonotes}              % Todos in GROßBUCHSTABEN
 \usepackage{graphicx}               % Bilder
+\usepackage{svg}                    % SVG Bilder
 \graphicspath{{resources/images/}}  % Standard Bilderpfad
 \usepackage{subcaption}             % Mehrere Bilder/Tabllen in einer Figure
 \usepackage{tikz}                   % für komplexe Bilderstellung
@@ -85,6 +90,13 @@
 \usepackage{xurl}                   % URL Umbruch
 \usepackage{pdflscape}              % Querformat
 \usepackage{enumitem}               % Aufzählungsstile
+
+
+
+% Setzen des Pfads zu Inkscape
+\svgsetup{
+    inkscapeexe=/Applications/Inkscape.app/Contents/MacOS/inkscape
+}
 
 %% Bibliographie
 \usepackage[
@@ -103,7 +115,7 @@
 \definecolor{LinkColor}{HTML}{00007A} % Farbe
 \usepackage[%
     pdftitle={\documentTitle},
-    pdfauthor={\documentAuthor},
+    pdfauthor={\documentAuthor, \documentAuthor2},
     pdfsubject={\documentType},
     pdfcreator={pdflatex, LaTeX with KOMA-Script},
     pdfpagemode=UseOutlines,
@@ -116,7 +128,8 @@
 	menucolor=LinkColor,
 	urlcolor=LinkColor,
 	linktocpage=true,
-	bookmarksnumbered=true
+	bookmarksnumbered=true,
+    hidelinks = true
 ]{hyperref}
 
 %% Quelltext
@@ -154,7 +167,7 @@
 \def\lstlistingautorefname{Skript}
 
 %% Chapter Style
-\definecolor{chapterBlue}{RGB}{47,84,150}
+\definecolor{chapterBlue}{RGB}{20,20,20}
 \addtokomafont{chapter}{\color{chapterBlue}}
 \addtokomafont{section}{\color{chapterBlue}}
 \addtokomafont{subsection}{\color{chapterBlue}}
@@ -169,5 +182,6 @@
 
 %% Cover Einstellungen
 \title{\documentTitle}
-\author{\documentAuthor}
+\author{\documentAuthor1}
+\author{\documentAuthor2}
 \date{\releaseDate}
