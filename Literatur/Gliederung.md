@@ -31,6 +31,7 @@ Zunächst werden grundlegende mathematische Konzepte erläutert, gefolgt von ein
 
 - **Zahlensysteme und Codierung**  
 - **Fehlerarten** (Einzelfehler, Ziffernvertauschung, Mehrfachfehler)  
+- **Fehlererkennung vs. Fehlerkorrektur**
 - **Modulare Arithmetik**  
 - **Polynomrechnung über \( \mathbb{F}_2 \)**  
 - **Skalarprodukt und Gewichtungen**
@@ -65,6 +66,10 @@ Jede Ziffer der Grundzahl wird mit einem festen Gewicht multipliziert, die Summe
 Skalarprodukt, lineare Kombination
 
 **Beispiel:**  
+**ISBN (Internationale Standardbuchnummer)**
+
+**EKON (Europäischer Artikelcode)**
+
 **EAN-13 (Europäischer Artikelcode)**  
 - Gewichtung: abwechselnd 1 und 3  
 - Beispiel:  
@@ -108,16 +113,6 @@ Polynomdivision im Körper \( \mathbb{F}_2 \)
   \( G(x) = x^{32} + x^{26} + x^{23} + \dots + 1 \)  
 - Eingabefolge = Nachricht als Binärzahl  
 - Prüfziffer = Rest \( R(x) \) aus \( \frac{M(x) \cdot x^k}{G(x)} \)
-
----
-
-## 4. Ausgewählte Prüfzifferverfahren im Detail
-
-- 4.1 ISBN (Modulo-11 mit Gewichtung)  
-- 4.2 IBAN (Modulo-97)  
-- 4.3 GTIN-13 (s. o.)  
-- 4.4 Luhn (s. o.)  
-- 4.5 CRC-32 (s. o.)
 
 ---
 

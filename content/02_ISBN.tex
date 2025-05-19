@@ -5,4 +5,42 @@
 
 \section{ISBN}
 
-In der Buchindustrie wird die ISBN (International Standard Book Number) verwendet, um Bücher eindeutig zu identifizieren.
+In der Buchindustrie wird die ISBN (Internationale Standard-Buchnummer)
+verwendet, um Bücher eindeutig zu identifizieren. 
+Bis Ende 2006 wurde die ISBN-10 verwendet, die aus 10 Ziffern besteht und eine Prüfziffer enthält, die auf einem Modulo-11-Verfahren basiert.
+der ISBN-10 ist wie folgt aufgebaut:
+\begin{equation}
+\label{eq:ISBN-10}
+v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9
+\end{equation}
+
+Die Prüfziffer \(v_9\) wird wie folgt berechnet:
+
+\begin{equation}
+\label{eq:ISBN-10-Prüfziffer}
+        10v_0 + 9v_1 + 8v_2 + 7v_3 + 6v_4 + 5v_5 + 4v_6 + 3v_7 + 2v_8 + 1v_9 \equiv 0 \pmod{11}
+\end{equation}
+
+Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code basiert.
+
+Die ISBN besteht aus 13 Ziffern und ist wie folgt aufgebaut: 
+\begin{itemize}
+    \item Präfix (z. B. 978 oder 979)
+    \item Gruppennummer (z. B. Sprach- oder Ländergruppe)
+    \item Verlagsnummer
+    \item Artikelnummer
+    \item Prüfziffer
+\end{itemize}
+
+
+Die Gruppennummer identifiziert die Sprache oder das Land, in dem das Buch veröffentlicht wurde. Die Ziffer 3 steht für den deutschsprachigen Buchmarkt.
+
+Die Prüfziffer wird mithilfe eines Modulo-11-Verfahrens berechnet, wobei die Gewichtung der Ziffern alternierend 1 und 3 beträgt. Die Berechnung erfolgt wie folgt:
+\[
+\text{Summe} = \sum_{i=1}^{12} z_i \cdot w_i
+\]
+Dabei ist \( z_i \) die \( i \)-te Ziffer der ISBN und \( w_i \) das entsprechende Gewicht (1 oder 3). Die Prüfziffer \( z_{13} \) wird so gewählt, dass die Summe modulo 10 gleich 0 ist:
+\[
+z_{13} = (10 - (\text{Summe} \mod 10)) \mod 10
+\]
+
