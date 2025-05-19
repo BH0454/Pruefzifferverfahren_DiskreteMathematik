@@ -1,84 +1,120 @@
 %!TEX root = ../main.tex
 
+%======================================
+% 1. Einleitung
+%======================================
 \input{content/01_Einleitung.tex}
-\input{content/02_ISBN.tex}
-\input{content/03_EAN.tex}
-\input{content/04_EKONS.tex}
-\input{content/05_Ausblick.tex}
 
-%% Beispiele, können problemlos entfernt werden!
-\chapter{Beispiele}
-Beispiele, können problemlos entfernt werden!
-\section{Literatur}
-Beispiel Text \cite[S. 10]{testBuch1}
-Beispiel Homepage\cite{urlId} \\
+%======================================
+% 2. Theoretische Grundlagen
+%======================================
+\input{content/02_TheoretischeGrundlagen.tex}
 
-\section{Bilder}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.3\linewidth]{resources/images/logo-dhbw}
-	\caption{DHBW Logo}
-	\label{fig:logo-dhbw}
-\end{figure}
+%======================================
+% 3. Klassifikation von Prüfzifferverfahren mit Detailbeispielen
+%======================================
+\input{content/03_Klassifikation/03_0_Klassifikation.tex}
 
-\section{Fußnote und Abkürzung}
-Fußnote\footnote{Fußnote}, \ac{DHBW}
+% 3.1 Einfaches Modulo-Verfahren
+\input{content/03_Klassifikation/03_1_EinfachesModuloVerfahren.tex}
+% Beispiel: Bankleitzahl integriert im selben Dokument
 
-\section{Tabelle}
-\begin{table}[H]
-	\centering
-	\caption{Tabellenbeispiel}
-	\label{tab:example}
-	\begin{tabular}{|l|c|r|}
-		\hline
-		Spalte 1 & Spalte 2 & Spalte 3 \\
-		\hline
-		Zeile  &  &  \\
-		\hline
-		& Zeile &  \\
-		\hline
-		&  & Zeile \\
-		\hline
-		\multicolumn{2}{|r|}{Verbunden}	& nicht Verbunden \\
-		\hline
-	\end{tabular}
-\end{table}
+% 3.2 Gewichtsverfahren mit Detailbeispielen
+\input{content/03_Klassifikation/03_2_Gewichtsverfahren.tex}
 
-\section{Skript}
-\lstinline[language=c]|printf("Inline Code");|
-\lstinputlisting[language=python,caption={Beispiel python Skript},captionpos=t,label=scr:exanple]{resources/example-script.py}
+% 3.3 Verfahren mit Permutation
+\input{content/03_Klassifikation/03_3_VerfahrenMitPermutation.tex}
 
-\section{TODOs}
-Text Text\todo{TODO als Randnotiz} Text
-\todo[inline]{TODO als in Zeile}
+% 3.4 Polynomielle Verfahren
+\input{content/03_Klassifikation/03_4_PolynomielleVerfahren.tex}
 
-\begin{landscape}
-	\section{Querformat}
-	Text über Tabelle \ref{tab:breitetabelle}.
-	\begin{table}[H]
-		\caption{Breites Tabellenbeispiel}
-		\label{tab:breitetabelle}
-		\centering
-		\resizebox{\columnwidth}{!}{%
-			\begin{tabular}{|p{10cm}|p{10cm}|p{10cm}|}
-				\hline
-				Sehr & breite & Tabelle \\
-				\hline
-				\multicolumn{3}{|c|}{Tabelle wurde in der Größe verkleinert} \\
-				\hline
-			\end{tabular}
-		}
-	\end{table}
-	Text unter Tabelle \ref{tab:breitetabelle}.
-\end{landscape}
+%======================================
+% 4. Mathematische Analyse der Verfahren
+%======================================
+\input{content/04_MathematischeAnalyse.tex}
 
-\section{Auflistungen}
-\begin{enumerate}
-	\item Aufzählung nummeriert
-\end{enumerate}
-\begin{itemize}
-	\item Aufzählung Stichpunkte
-\end{itemize}
-\begin{description}[style=nextline]
-	\item[Label] Aufzählung als Beschreibung
-\end{description}
+%======================================
+% 5. Anwendungsbeispiele und praktische Bedeutung
+%======================================
+\input{content/05_Anwendungsbeispiele.tex}
+
+%======================================
+% 6. Fazit und Ausblick
+%======================================
+\input{content/06_FazitAusblick.tex}
+
+% \chapter{Beispiele}
+% Beispiele, können problemlos entfernt werden!
+% \section{Literatur}
+% Beispiel Text \cite[S. 10]{testBuch1}
+% Beispiel Homepage\cite{urlId} \\
+
+% \section{Bilder}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=0.3\linewidth]{resources/images/logo-dhbw}
+% 	\caption{DHBW Logo}
+% 	\label{fig:logo-dhbw}
+% \end{figure}
+
+% \section{Fußnote und Abkürzung}
+% Fußnote\footnote{Fußnote}, \ac{DHBW}
+
+% \section{Tabelle}
+% \begin{table}[H]
+% 	\centering
+% 	\caption{Tabellenbeispiel}
+% 	\label{tab:example}
+% 	\begin{tabular}{|l|c|r|}
+% 		\hline
+% 		Spalte 1 & Spalte 2 & Spalte 3 \\
+% 		\hline
+% 		Zeile  &  &  \\
+% 		\hline
+% 		& Zeile &  \\
+% 		\hline
+% 		&  & Zeile \\
+% 		\hline
+% 		\multicolumn{2}{|r|}{Verbunden}	& nicht Verbunden \\
+% 		\hline
+% 	\end{tabular}
+% \end{table}
+
+% \section{Skript}
+% \lstinline[language=c]|printf("Inline Code");|
+% \lstinputlisting[language=python,caption={Beispiel python Skript},captionpos=t,label=scr:exanple]{resources/example-script.py}
+
+% \section{TODOs}
+% Text Text\todo{TODO als Randnotiz} Text
+% \todo[inline]{TODO als in Zeile}
+
+% \begin{landscape}
+% 	\section{Querformat}
+% 	Text über Tabelle \ref{tab:breitetabelle}.
+% 	\begin{table}[H]
+% 		\caption{Breites Tabellenbeispiel}
+% 		\label{tab:breitetabelle}
+% 		\centering
+% 		\resizebox{\columnwidth}{!}{%
+% 			\begin{tabular}{|p{10cm}|p{10cm}|p{10cm}|}
+% 				\hline
+% 				Sehr & breite & Tabelle \\
+% 				\hline
+% 				\multicolumn{3}{|c|}{Tabelle wurde in der Größe verkleinert} \\
+% 				\hline
+% 			\end{tabular}
+% 		}
+% 	\end{table}
+% 	Text unter Tabelle \ref{tab:breitetabelle}.
+% \end{landscape}
+
+% \section{Auflistungen}
+% \begin{enumerate}
+% 	\item Aufzählung nummeriert
+% \end{enumerate}
+% \begin{itemize}
+% 	\item Aufzählung Stichpunkte
+% \end{itemize}
+% \begin{description}[style=nextline]
+% 	\item[Label] Aufzählung als Beschreibung
+% \end{description}
