@@ -1,6 +1,6 @@
 ## Struktur
 
-Zuerst kurze Einleitung ins Thema Prüfzifferverfahren
+Zuerst kurze Einleitung ins Thema Prüfziffernverfahren
 
 Dann einzeln 
 
