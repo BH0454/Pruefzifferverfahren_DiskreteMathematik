@@ -1,4 +1,36 @@
 %!TEX root = ../../main.tex
 
+
 \section{Einfaches Modulo-Verfahren}
+
+% Das einfache Modulo-Verfahren ist eines der grundlegendsten Prüfzifferverfahren zur Fehlererkennung bei der Übertragung oder Speicherung von Zahlenfolgen. Das Prinzip beruht darauf, der zu prüfenden Ziffernfolge am Ende eine Prüfziffer hinzuzufügen, sodass die gesamte Folge bezüglich eines festen Modulus ohne Rest teilbar ist. In der Praxis wird häufig der Modulus 10 verwendet, es sind jedoch auch andere Werte wie 11 oder 97 gebräuchlich.
+
+% Die mathematische Grundlage dieses Verfahrens ist die Division mit Rest, formalisiert durch die Modulo-Operation. Für eine gegebene Ziffernfolge \( z = z_1z_2\dots z_n \) wird die Prüfziffer \( p \) so gewählt, dass gilt:
+
+% \[
+% (z \cdot 10 + p) \bmod m = 0
+% \]
+
+% wobei \( m \) der gewählte Modulus ist, in der Regel \( m = 10 \). Die Prüfziffer \( p \) ergibt sich somit als
+
+% \[
+% p = (m - (z \bmod m)) \bmod m
+% \]
+
+% Ein klassisches Beispiel für die Anwendung des einfachen Modulo-10-Verfahrens ist die Prüfziffernbildung bei deutschen Bankleitzahlen. Hier wird an eine siebenstellige Bankleitzahl eine Prüfziffer angehängt, sodass die achtstellige Gesamtnummer durch 10 teilbar ist. Für die Bankleitzahl „1234567“ ergibt sich die Prüfziffer zu „3“, da
+
+% \[
+% 12345673 \bmod 10 = 0
+% \]
+
+% Das einfache Modulo-Verfahren ist leicht implementierbar und erkennt zuverlässig Einzelfehler, jedoch keine Ziffernvertauschungen. Es stellt damit eine grundlegende, aber in ihrer Fehlererkennungsleistung eingeschränkte Methode dar.
+
+
+
+% Die BLZ ist eine achtstellige Zahlenfolge, die dazu da ist, Kredit- und Zahlungsinstitute sowie -Dienstleister richtig zuordnen zu können. Dadurch kann beispielsweise sichergestellt werden, dass überwiesenes Geld bei der richtigen Sparkasse oder Bank ankommt. Früher wurden Kundinnen und Kunden bei jeder Überweisung in Deutschland nach der Bankleitzahl und der Kontonummer gefragt. Mittlerweile haben BIC und IBAN diese Funktion im gesamten Euro-Zahlungsverkehrsraum übernommen. Das erleichtert Überweisungen zwischen verschiedenen Ländern der Europäischen Union
+
+
+% \underline{\section{Skript}
+% \lstinline[language=c]|printf("Inline Code");|
+% \lstinputlisting[language=python,caption={Beispiel python Skript},captionpos=t,label=scr:exanple]{resources/example-script.py}}
 

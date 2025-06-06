@@ -2,12 +2,42 @@
 
 \section{Gewichtsverfahren}
 
+Gewichtsverfahren sind eine Klasse von Prüfzifferverfahren, die auf der Zuweisung von Gewichten zu den einzelnen Ziffern einer Zahl basieren. Diese Gewichte werden verwendet, um eine Prüfziffer zu berechnen, die dann zusammen mit der ursprünglichen Zahl übertragen wird. Die Prüfziffer dient dazu, Übertragungsfehler zu erkennen.
+Die Grundidee dieser Verfahren ist, dass jede Ziffer der Zahl mit einem bestimmten Gewicht multipliziert wird, bevor die Summe aller gewichteten Ziffern gebildet wird. Diese Summe wird dann modulo einer bestimmten Basis (häufig 10 oder 11) genommen, um die Prüfziffer zu erhalten.
+
+\subsection{EAN-13}
+\label{sec:ean13}
+
+Ein typisches Beispiel für ein Gewichtsverfahren ist die Berechnung der EAN-Prüfziffer (Europäische Artikelnummer), die in der Produktkennzeichnung verwendet wird. Die EAN-13 besteht aus 13 Ziffern, wobei die letzten Ziffern eine Prüfziffer sind, die auf einem Modulo-10-Verfahren basiert. Hierzu wird die EAN-Nummer in zwei Gruppen unterteilt: die ersten 12 Ziffern und die letzte Prüfziffer. Die ersten 12 Ziffern werden abwechselnd mit den Gewichten 1 und 3 multipliziert, um eine Summe zu bilden. Diese Summe wird dann modulo 10 genommen, um die Prü
+
+
+
+Hierbei werden die Ziffern der EAN-Nummer abwechselnd mit den Gewichten 1 und 3 multipliziert, um eine Prüfziffer zu generieren, die sicherstellt, dass die gesamte Nummer korrekt ist.
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.6\linewidth]{ean_code.png}
+        \caption{Beispiel eines EAN-13 Codes}
+        \label{fig:ean13-example}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{ean_berechnung.png}
+        \caption{Aufbau und Berechnung der EAN-13 Prüfziffer}
+        \label{fig:ean13-structure}
+    \end{subfigure}
+    \caption{Darstellung und Aufbau des EAN-13 Code \cite{Hoffmann2023-sv}}
+    \label{fig:ean13}
+\end{figure}
+
 
 
 \subsection{ISBN}
 
-In der Buchindustrie wird die ISBN (Internationale Standard-Buchnummer)
-verwendet, um Bücher eindeutig zu identifizieren. 
+Ein ebenfalls weit verbreitetes Beispiel für ein Gewichtsverfahren ist die ISBN (Internationale Standard-Buchnummer), die in der Buchindustrie zur eindeutigen Identifikation von Büchern verwendet wird. 
 Bis Ende 2006 wurde die ISBN-10 verwendet, die aus 10 Ziffern besteht und eine Prüfziffer enthält, die auf einem Modulo-11-Verfahren basiert.
 der ISBN-10 ist wie folgt aufgebaut:
 \begin{equation}
@@ -15,23 +45,24 @@ der ISBN-10 ist wie folgt aufgebaut:
 v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9
 \end{equation}
 
-Die Prüfziffer \(v_9\) wird wie folgt berechnet:
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{isbn_aufbau.png}
+    \caption{Beispiel für eine ISBN-13 \cite{Hoffmann2023-sv}}
+    \label{fig:ISBN-13-Beispiel}
+\end{wrapfigure}
+
+Es gilt die folgende Vorschrift für die Buchnummer:
 
 \begin{equation}
 \label{eq:ISBN-10-Prüfziffer}
         10v_0 + 9v_1 + 8v_2 + 7v_3 + 6v_4 + 5v_5 + 4v_6 + 3v_7 + 2v_8 + 1v_9 \equiv 0 \pmod{11}
 \end{equation}
 
-Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code basiert.
+Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code (vgl. Abschnitt \ref{sec:ean13}) basiert, jedoch abweichend zum Artikelcode eine Modulo 111
 
-Die ISBN besteht aus 13 Ziffern und ist wie folgt aufgebaut: 
-\begin{itemize}
-    \item Präfix (z. B. 978 oder 979)
-    \item Gruppennummer (z. B. Sprach- oder Ländergruppe)
-    \item Verlagsnummer
-    \item Artikelnummer
-    \item Prüfziffer
-\end{itemize}
+
+Ein Beispiel für eine ISBN-13 ist in Abbildung \ref{fig:ISBN-13-Beispiel} dargestellt.
 
 
 Die Gruppennummer identifiziert die Sprache oder das Land, in dem das Buch veröffentlicht wurde. Die Ziffer 3 steht für den deutschsprachigen Buchmarkt.
