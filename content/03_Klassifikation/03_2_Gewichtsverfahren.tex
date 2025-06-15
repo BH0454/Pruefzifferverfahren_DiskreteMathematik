@@ -1,11 +1,11 @@
 %!TEX root = ../../main.tex
 
-\section{Gewichtsverfahren}
+\chapter{Gewichtsverfahren}
 
 Gewichtsverfahren sind eine Klasse von Prüfzifferverfahren, die auf der Zuweisung von Gewichten zu den einzelnen Ziffern einer Zahl basieren. Diese Gewichte werden verwendet, um eine Prüfziffer zu berechnen, die dann zusammen mit der ursprünglichen Zahl übertragen wird. Die Prüfziffer dient dazu, Übertragungsfehler zu erkennen.
 Die Grundidee dieser Verfahren ist, dass jede Ziffer der Zahl mit einem bestimmten Gewicht multipliziert wird, bevor die Summe aller gewichteten Ziffern gebildet wird. Diese Summe wird dann modulo einer bestimmten Basis (häufig 10 oder 11) genommen, um die Prüfziffer zu erhalten.
 
-\subsection{EAN-13}
+\section{EAN-13}
 \label{sec:ean13}
 
 Ein typisches Beispiel für ein Gewichtsverfahren ist die Berechnung der EAN-Prüfziffer (Europäische Artikelnummer), die in der Produktkennzeichnung verwendet wird. Die EAN-13 besteht aus 13 Ziffern, wobei die letzten Ziffern eine Prüfziffer sind, die auf einem Modulo-10-Verfahren basiert. Hierzu wird die EAN-Nummer in zwei Gruppen unterteilt: die ersten 12 Ziffern und die letzte Prüfziffer. Die ersten 12 Ziffern werden abwechselnd mit den Gewichten 1 und 3 multipliziert, um eine Summe zu bilden. Diese Summe wird dann modulo 10 genommen, um die Prü
@@ -35,7 +35,7 @@ Hierbei werden die Ziffern der EAN-Nummer abwechselnd mit den Gewichten 1 und 3 
 
 
 
-\subsection{ISBN}
+\section{ISBN}
 
 Ein ebenfalls weit verbreitetes Beispiel für ein Gewichtsverfahren ist die ISBN (Internationale Standard-Buchnummer), die in der Buchindustrie zur eindeutigen Identifikation von Büchern verwendet wird. 
 Bis Ende 2006 wurde die ISBN-10 verwendet, die aus 10 Ziffern besteht und eine Prüfziffer enthält, die auf einem Modulo-11-Verfahren basiert.
@@ -76,7 +76,7 @@ Dabei ist \( z_i \) die \( i \)-te Ziffer der ISBN und \( w_i \) das entsprechen
 z_{13} = (10 - (\text{Summe} \mod 10)) \mod 10
 \]
 
-\subsection{Luhn-Algorithmus}
+\section{Luhn-Algorithmus}
 
 Der Luhn-Algorithmus oder auch Modulo-10-Algorithmus ist ein weiteres Beispiel für ein Gewichtsverfahren und wird verwendet, um eine Prüfzimmer zu berechnen, mit der sich unter anderem Kredidkartennummern, Indentifikationsnummern oder andere finanzielle Kennnummern valieren lassen.
 Er wurde bereits 1954 von dem deutschen Informatiker Hans Peter Luhn patentiert und seitdem angewendet.
