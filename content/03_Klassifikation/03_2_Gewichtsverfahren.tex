@@ -82,21 +82,6 @@ Mathematisch ausgedrückt: Bei einer Vertauschung zweier Ziffern $v_k$ und $v_l$
 
 Ein besonderes Merkmal der ISBN-10 ist, dass als Prüfziffer auch der Wert 10 vorkommen kann, der dann durch das Zeichen 'X' dargestellt wird. Dies kann zu Verwirrung führen, da 'X' keine Dezimalziffer im eigentlichen Sinne ist und in manchen Systemen zu Verarbeitungsproblemen führen kann.
 
-Die ISBN-13, die seit 2007 die ISBN-10 ersetzt hat, bietet gegenüber ihrem Vorgänger mehrere Vor- und Nachteile:
-
-\textbf{Vorteile der ISBN-13:}
-\begin{itemize}
-    \item \textbf{Größerer Nummernraum:} Die Umstellung auf 13 Stellen ermöglicht eine deutlich größere Anzahl an verfügbaren Kennziffern, was angesichts der steigenden Publikationszahlen notwendig wurde.
-    \item \textbf{Kompatibilität:} Die ISBN-13 ist direkt mit dem EAN-System kompatibel, was die Integration in bestehende Logistik- und Handelssysteme erheblich vereinfacht.
-    \item \textbf{Keine Sonderzeichen:} Anders als bei ISBN-10 wird kein Sonderzeichen wie 'X' für die Prüfziffer benötigt, was die maschinelle Verarbeitung vereinfacht.
-\end{itemize}
-
-\textbf{Nachteile der ISBN-13:}
-\begin{itemize}
-    \item \textbf{Umstellungsaufwand:} Die Umstellung von ISBN-10 auf ISBN-13 hat erheblichen Aufwand für Verlage, Buchhandel und Bibliotheken verursacht.
-    \item \textbf{Fehlererkennungsqualität:} Die ISBN-13 verwendet das Modulo-10-Verfahren mit den alternierenden Gewichten 1 und 3, das im Vergleich zum Modulo-11-Verfahren der ISBN-10 nicht alle Vertauschungsfehler erkennen kann, insbesondere Vertauschungen mit einer Differenz von 5 können unerkannt bleiben.
-\end{itemize}
-
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{isbn_aufbau.png}
@@ -106,27 +91,7 @@ Die ISBN-13, die seit 2007 die ISBN-10 ersetzt hat, bietet gegenüber ihrem Vorg
 
 Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code (vgl. Abschnitt \ref{sec:ean13}) basiert und dieselbe Struktur mit alternierenden Gewichten (1 und 3) und Modulo 10 verwendet. Ein Beispiel für eine ISBN-13 mit den Bedeutung der einzelnen Ziffern ist in Abbildung \ref{fig:ISBN-13-Beispiel} dargestellt.
 
-Mathematisch lässt sich der Unterschied in der Fehlererkennungsfähigkeit zwischen ISBN-10 und ISBN-13 wie folgt darstellen:
-
-\begin{itemize}
-    \item ISBN-10 (Modulo 11): Für Vertauschungsfehler zweier benachbarter Stellen $v_k$ und $v_{k+1}$ gilt:
-    \begin{equation}
-        (g_k - g_{k+1})(v_{k+1} - v_k) \not\equiv 0 \pmod{11} \quad \forall v_k \neq v_{k+1}
-    \end{equation}
-    Da $g_k - g_{k+1} = 1$ und $\gcd(1, 11) = 1$ ist, wird jede Vertauschung erkannt.
-    
-    \item ISBN-13 (Modulo 10): Für Vertauschungsfehler zweier benachbarter Stellen mit alternierendem Gewicht (1 und 3) gilt:
-    \begin{equation}
-        (1 - 3)(v_{k+1} - v_k) = -2(v_{k+1} - v_k) \not\equiv 0 \pmod{10}
-    \end{equation}
-    Dies erkennt nur Vertauschungen, bei denen $v_{k+1} - v_k \not\equiv 0 \pmod{5}$ ist. Beispielsweise bleibt eine Vertauschung von 0 und 5 unerkannt, da $-2 \cdot (0 - 5) = 10 \equiv 0 \pmod{10}$.
-\end{itemize}
-
-
-
-% Die Gruppennummer identifiziert die Sprache oder das Land, in dem das Buch veröffentlicht wurde. Die Ziffer 3 steht für den deutschsprachigen Buchmarkt.
-
-\cite{Hoffmann2023-sv}
+Die ISBN-13 verwendet die Präfixe 978 oder 979-1 bis 979-9 und integriert dadurch die ISBN vollständig ins EAN-System. Die Umstellung von ISBN-10 auf ISBN-13 erfolgte primär aus praktischen Erwägungen: Durch die Erweiterung des Nummernraums können deutlich mehr Bücher eindeutig identifiziert werden. Zudem ermöglicht die Integration in das EAN-System eine nahtlose Verarbeitung in bestehenden logistischen Prozessen des Handels. Aus mathematischer Sicht ist jedoch die ISBN-10 mit ihrem Modulo-11-Verfahren dem neuen Format überlegen. Während die ISBN-10 durch ihre Primzahlbasis alle Vertauschungsfehler erkennt, kann die ISBN-13 mit ihrem Modulo-10-Verfahren bestimmte Ziffernvertauschungen nicht identifizieren. Die Vereinheitlichung mit dem EAN-System hat somit zu einer Verschlechterung der fehlererkennenden Eigenschaften geführt – ein klassischer Fall, bei dem praktische Anforderungen und theoretische Optimalität gegeneinander abgewogen werden mussten \cite{Hoffmann2023-sv}.
 
 \section{Luhn-Algorithmus}
 
@@ -229,3 +194,5 @@ p_0 = (10 - (57 \bmod 10)) \bmod 10 = (10 - 7) \bmod 10 = 3
 \end{equation*}
 
 Die vollständige Kreditkartennummer lautet somit: 4556\ 7375\ 8698\ 553.
+
+\todo{hier noch schreiben, warum das gut ist ? Erkennt man damit gut fehler oder wie ist das zu verstehen?}
