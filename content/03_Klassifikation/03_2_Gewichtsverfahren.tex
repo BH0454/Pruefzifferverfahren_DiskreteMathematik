@@ -8,13 +8,27 @@ Die Grundidee dieser Verfahren ist, dass jede Ziffer der Zahl mit einem bestimmt
 \section{EAN-13}
 \label{sec:ean13}
 
-Ein typisches Beispiel für ein Gewichtsverfahren ist die Berechnung der EAN-Prüfziffer (Europäische Artikelnummer), die in der Produktkennzeichnung verwendet wird. Die EAN-13 besteht aus 13 Ziffern, wobei die letzten Ziffern eine Prüfziffer sind, die auf einem Modulo-10-Verfahren basiert. Hierzu wird die EAN-Nummer in zwei Gruppen unterteilt: die ersten 12 Ziffern und die letzte Prüfziffer. Die ersten 12 Ziffern werden abwechselnd mit den Gewichten 1 und 3 multipliziert, um eine Summe zu bilden. Diese Summe wird dann modulo 10 genommen, um die Prü
+Ein klassisches Beispiel für ein Gewichtsverfahren ist die Berechnung der Prüfziffer der \ac{EAN}, die insbesondere zur eindeutigen Identifikation von Handelsprodukten dient. Die EAN findet sich in der Regel sowohl im Klartext als auch in Form eines Strichcodes auf Produktverpackungen und Etiketten.
 
+Die gebräuchliche EAN-13 besteht aus insgesamt 13 Ziffern, wobei die letzte Ziffer eine Prüfziffer darstellt. Diese wird mittels eines Modulo-10-Verfahrens ermittelt, um Eingabefehler (z. B. Zahlendreher oder Einzelfehler) zuverlässig zu erkennen.
 
+Zur Berechnung der Prüfziffer werden die ersten 12 Ziffern positionsabhängig mit alternierenden Gewichten von 1 und 3 multipliziert. Anschließend werden die Produkte aufsummiert. Die Prüfziffer ergibt sich als diejenige Zahl, die zur gebildeten Summe addiert werden muss, um ein durch 10 teilbares Ergebnis zu erhalten. Formal ausgedrückt entspricht die Prüfziffer dem Wert, der notwendig ist, um die alternierend gewichtete Quersumme modulo 10 auf null zu ergänzen.
 
-Hierbei werden die Ziffern der EAN-Nummer abwechselnd mit den Gewichten 1 und 3 multipliziert, um eine Prüfziffer zu generieren, die sicherstellt, dass die gesamte Nummer korrekt ist.
+Die EAN-13 ist wie folgt aufgebaut:
 
-\begin{figure}[ht]
+% EAN-13 Prüfzifferberechnung
+\begin{equation}
+v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9 v_{10} v_{11} v_{12}
+\end{equation}
+
+Für eine EAN-13 ist die Berechnung der Prüfziffer \( v_{12} \) wie folgt:
+
+\begin{equation}
+\sum_{i \text{ gerade}} v_i + \sum_{i \text{ ungerade}} 3v_i \equiv 0 \pmod{10}
+\end{equation}
+Dieses Verfahren gewährleistet eine effiziente Plausibilitätskontrolle der EAN-Nummer im praktischen Einsatz \cite{Hoffmann2023-sv}.
+
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \centering
@@ -33,48 +47,86 @@ Hierbei werden die Ziffern der EAN-Nummer abwechselnd mit den Gewichten 1 und 3 
     \label{fig:ean13}
 \end{figure}
 
-
-
 \section{ISBN}
 
-Ein ebenfalls weit verbreitetes Beispiel für ein Gewichtsverfahren ist die ISBN (Internationale Standard-Buchnummer), die in der Buchindustrie zur eindeutigen Identifikation von Büchern verwendet wird. 
+Ein ebenfalls weit verbreitetes Beispiel für ein Gewichtsverfahren ist die \ac{ISBN}, die in der Buchindustrie zur eindeutigen Identifikation von Büchern verwendet wird. 
 Bis Ende 2006 wurde die ISBN-10 verwendet, die aus 10 Ziffern besteht und eine Prüfziffer enthält, die auf einem Modulo-11-Verfahren basiert.
-der ISBN-10 ist wie folgt aufgebaut:
+
+Die ISBN-10 ist wie folgt aufgebaut:
+
 \begin{equation}
 \label{eq:ISBN-10}
-v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9
+v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9,
 \end{equation}
 
-\begin{wrapfigure}{r}{0.3\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{isbn_aufbau.png}
-    \caption{Beispiel für eine ISBN-13 \cite{Hoffmann2023-sv}}
-    \label{fig:ISBN-13-Beispiel}
-\end{wrapfigure}
-
-Es gilt die folgende Vorschrift für die Buchnummer:
+wobei die folgende Vorschrift für die Prüfziffer gilt:
 
 \begin{equation}
 \label{eq:ISBN-10-Prüfziffer}
         10v_0 + 9v_1 + 8v_2 + 7v_3 + 6v_4 + 5v_5 + 4v_6 + 3v_7 + 2v_8 + 1v_9 \equiv 0 \pmod{11}
 \end{equation}
 
-Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code (vgl. Abschnitt \ref{sec:ean13}) basiert, jedoch abweichend zum Artikelcode eine Modulo 111
+Durch diesen Aufbau können Einzelfehler und Ziffernvertauschungen erkannt werden. Die mathematische Begründung hierfür lässt sich wie folgt darstellen: Durch die Verwendung der Primzahl 11 als Modul wird die Menge $\mathbb{Z}^*_{11}$ gebildet, die alle Zahlen zwischen 1 und 10 umfasst:
+
+\begin{equation}
+\mathbb{Z}^*_{11} = \mathbb{Z}_{11} \setminus \{0\} = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}
+\end{equation}
+
+In dieser Menge sind ausnahmslos alle Gewichte enthalten, die in der Kongruenz (\ref{eq:ISBN-10-Prüfziffer}) verwendet werden. Ein grundlegendes mathematisches Prinzip besagt, dass ein Prüfziffercode mit der Beziehung $\sum_i g_i v_i \equiv 0 \pmod{p}$ genau dann in der Lage ist, alle Einzelfehler an einer Stelle $k$ zu erkennen, wenn das entsprechende Gewicht $g_k$ ein Element der Menge $\mathbb{Z}^*_p$ ist, also teilerfremd zum Modul $p$ ist.
+
+Da bei der ISBN-10 alle Gewichte (1 bis 10) Elemente von $\mathbb{Z}^*_{11}$ sind und somit teilerfremd zu 11, erkennt der Code jeden Einzelfehler. Dies lässt sich mathematisch wie folgt begründen: Wenn eine Ziffer $v_i$ fehlerhaft als $v'_i$ gelesen wird, ändert sich die gewichtete Summe um $g_i \cdot (v'_i - v_i)$. Diese Änderung kann nur dann kongruent zu 0 modulo 11 sein, wenn entweder $g_i \equiv 0 \pmod{11}$ oder $v'_i - v_i \equiv 0 \pmod{11}$ gilt. Da $g_i$ teilerfremd zu 11 ist, bleibt nur $v'_i \equiv v_i \pmod{11}$ als Möglichkeit, was bedeutet, dass kein Fehler vorliegen kann.
+
+Für die Erkennung von Vertauschungsfehlern gilt ein weiteres mathematisches Prinzip: Ein Prüfziffercode erkennt eine Vertauschung der Ziffern $v_k$ mit $v_l$ genau dann, wenn die Differenz der Gewichte $g_k - g_l$ ein Element der Menge $\mathbb{Z}^*_p$, also teilerfremd zum Modul $p$ ist. Bei der ISBN-10 ist jede Differenz zweier verschiedener Gewichte ein Element von $\mathbb{Z}^*_{11}$, da die Differenz zweier verschiedener Zahlen aus $\{1,2,\ldots,10\}$ nie durch 11 teilbar sein kann.
+
+Mathematisch ausgedrückt: Bei einer Vertauschung zweier Ziffern $v_k$ und $v_l$ ändert sich die gewichtete Summe um $(g_k - g_l)(v_l - v_k)$. Da sowohl die Gewichtsdifferenz $g_k - g_l$ als auch die Zifferndifferenz $v_l - v_k$ (sofern die Ziffern unterschiedlich sind) nicht durch 11 teilbar sind, kann diese Änderung nicht kongruent zu 0 modulo 11 sein. Damit wird jede Vertauschung zweier unterschiedlicher Ziffern erkannt.
+
+Ein besonderes Merkmal der ISBN-10 ist, dass als Prüfziffer auch der Wert 10 vorkommen kann, der dann durch das Zeichen 'X' dargestellt wird. Dies kann zu Verwirrung führen, da 'X' keine Dezimalziffer im eigentlichen Sinne ist und in manchen Systemen zu Verarbeitungsproblemen führen kann.
+
+Die ISBN-13, die seit 2007 die ISBN-10 ersetzt hat, bietet gegenüber ihrem Vorgänger mehrere Vor- und Nachteile:
+
+\textbf{Vorteile der ISBN-13:}
+\begin{itemize}
+    \item \textbf{Größerer Nummernraum:} Die Umstellung auf 13 Stellen ermöglicht eine deutlich größere Anzahl an verfügbaren Kennziffern, was angesichts der steigenden Publikationszahlen notwendig wurde.
+    \item \textbf{Kompatibilität:} Die ISBN-13 ist direkt mit dem EAN-System kompatibel, was die Integration in bestehende Logistik- und Handelssysteme erheblich vereinfacht.
+    \item \textbf{Keine Sonderzeichen:} Anders als bei ISBN-10 wird kein Sonderzeichen wie 'X' für die Prüfziffer benötigt, was die maschinelle Verarbeitung vereinfacht.
+\end{itemize}
+
+\textbf{Nachteile der ISBN-13:}
+\begin{itemize}
+    \item \textbf{Umstellungsaufwand:} Die Umstellung von ISBN-10 auf ISBN-13 hat erheblichen Aufwand für Verlage, Buchhandel und Bibliotheken verursacht.
+    \item \textbf{Fehlererkennungsqualität:} Die ISBN-13 verwendet das Modulo-10-Verfahren mit den alternierenden Gewichten 1 und 3, das im Vergleich zum Modulo-11-Verfahren der ISBN-10 nicht alle Vertauschungsfehler erkennen kann, insbesondere Vertauschungen mit einer Differenz von 5 können unerkannt bleiben.
+\end{itemize}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{isbn_aufbau.png}
+    \caption{Beispiel für eine ISBN-13 \cite{Hoffmann2023-sv}}
+    \label{fig:ISBN-13-Beispiel}
+\end{wrapfigure}
+
+Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code (vgl. Abschnitt \ref{sec:ean13}) basiert und dieselbe Struktur mit alternierenden Gewichten (1 und 3) und Modulo 10 verwendet. Ein Beispiel für eine ISBN-13 mit den Bedeutung der einzelnen Ziffern ist in Abbildung \ref{fig:ISBN-13-Beispiel} dargestellt.
+
+Mathematisch lässt sich der Unterschied in der Fehlererkennungsfähigkeit zwischen ISBN-10 und ISBN-13 wie folgt darstellen:
+
+\begin{itemize}
+    \item ISBN-10 (Modulo 11): Für Vertauschungsfehler zweier benachbarter Stellen $v_k$ und $v_{k+1}$ gilt:
+    \begin{equation}
+        (g_k - g_{k+1})(v_{k+1} - v_k) \not\equiv 0 \pmod{11} \quad \forall v_k \neq v_{k+1}
+    \end{equation}
+    Da $g_k - g_{k+1} = 1$ und $\gcd(1, 11) = 1$ ist, wird jede Vertauschung erkannt.
+    
+    \item ISBN-13 (Modulo 10): Für Vertauschungsfehler zweier benachbarter Stellen mit alternierendem Gewicht (1 und 3) gilt:
+    \begin{equation}
+        (1 - 3)(v_{k+1} - v_k) = -2(v_{k+1} - v_k) \not\equiv 0 \pmod{10}
+    \end{equation}
+    Dies erkennt nur Vertauschungen, bei denen $v_{k+1} - v_k \not\equiv 0 \pmod{5}$ ist. Beispielsweise bleibt eine Vertauschung von 0 und 5 unerkannt, da $-2 \cdot (0 - 5) = 10 \equiv 0 \pmod{10}$.
+\end{itemize}
 
 
-Ein Beispiel für eine ISBN-13 ist in Abbildung \ref{fig:ISBN-13-Beispiel} dargestellt.
 
+% Die Gruppennummer identifiziert die Sprache oder das Land, in dem das Buch veröffentlicht wurde. Die Ziffer 3 steht für den deutschsprachigen Buchmarkt.
 
-Die Gruppennummer identifiziert die Sprache oder das Land, in dem das Buch veröffentlicht wurde. Die Ziffer 3 steht für den deutschsprachigen Buchmarkt.
-
-Die Prüfziffer wird mithilfe eines Modulo-11-Verfahrens berechnet, wobei die Gewichtung der Ziffern alternierend 1 und 3 beträgt. Die Berechnung erfolgt wie folgt:
-\[
-\text{Summe} = \sum_{i=1}^{12} z_i \cdot w_i
-\]
-Dabei ist \( z_i \) die \( i \)-te Ziffer der ISBN und \( w_i \) das entsprechende Gewicht (1 oder 3). Die Prüfziffer \( z_{13} \) wird so gewählt, dass die Summe modulo 10 gleich 0 ist:
-\[
-z_{13} = (10 - (\text{Summe} \mod 10)) \mod 10
-\]
+\cite{Hoffmann2023-sv}
 
 \section{Luhn-Algorithmus}
 
