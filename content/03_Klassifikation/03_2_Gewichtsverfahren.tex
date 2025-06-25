@@ -3,12 +3,13 @@
 \chapter{Gewichtsverfahren}
 \label{chap:Gewichtsverfahren}
 
+Gewichtsverfahren sind eine Klasse von Prüfzifferverfahren, die auf der Zuweisung von Gewichten zu den einzelnen Ziffern einer Zahl basieren. Diese Gewichte werden verwendet, um eine Prüfziffer zu berechnen, die dann zusammen mit der ursprünglichen Zahl übertragen wird. Die Prüfziffer dient dazu, Übertragungsfehler zu erkennen.
+Die Grundidee dieser Verfahren ist, dass jede Ziffer der Zahl mit einem bestimmten Gewicht multipliziert wird, bevor die Summe aller gewichteten Ziffern gebildet wird. Diese Summe wird dann modulo einer bestimmten Basis (häufig 10 oder 11) genommen, um die Prüfziffer zu erhalten.
+
 \section{EAN-13}
 \label{sec:ean13}
 
-Ein klassisches Beispiel für ein Gewichtsverfahren ist die Berechnung der Prüfziffer der \ac{EAN}, die insbesondere zur eindeutigen Identifikation von Handelsprodukten dient. Die EAN findet sich in der Regel sowohl im Klartext als auch in Form eines Strichcodes auf Produktverpackungen und Etiketten.
-
-Die gebräuchliche EAN-13 besteht aus insgesamt 13 Ziffern, wobei die letzte Ziffer eine Prüfziffer darstellt. Diese wird mittels eines Modulo-10-Verfahrens ermittelt, um Eingabefehler (z. B. Zahlendreher oder Einzelfehler) zuverlässig zu erkennen.
+Ein klassisches Beispiel für ein Gewichtsverfahren ist die Berechnung der Prüfziffer der \ac{EAN}, die insbesondere zur eindeutigen Identifikation von Handelsprodukten dient. Die EAN findet sich in der Regel sowohl im Klartext als auch in Form eines Strichcodes auf Produktverpackungen und Etiketten. Die gebräuchliche EAN-13 besteht aus insgesamt 13 Ziffern, wobei die letzte Ziffer eine Prüfziffer darstellt. Diese wird mittels eines Modulo-10-Verfahrens ermittelt, um Eingabefehler (z. B. Zahlendreher oder Einzelfehler) zuverlässig zu erkennen.
 
 Zur Berechnung der Prüfziffer werden die ersten 12 Ziffern positionsabhängig mit alternierenden Gewichten von 1 und 3 multipliziert. Anschließend werden die Produkte aufsummiert. Die Prüfziffer ergibt sich als diejenige Zahl, die zur gebildeten Summe addiert werden muss, um ein durch 10 teilbares Ergebnis zu erhalten. Formal ausgedrückt entspricht die Prüfziffer dem Wert, der notwendig ist, um die alternierend gewichtete Quersumme modulo 10 auf null zu ergänzen.
 
@@ -44,6 +45,7 @@ Dieses Verfahren gewährleistet eine effiziente Plausibilitätskontrolle der EAN
 \end{figure}
 
 \section{ISBN}
+\label{sec:isbn}
 
 Ein ebenfalls weit verbreitetes Beispiel für ein Gewichtsverfahren ist die \ac{ISBN}, die in der Buchindustrie zur eindeutigen Identifikation von Büchern verwendet wird. 
 Bis Ende 2006 wurde die ISBN-10 verwendet, die aus 10 Ziffern besteht und eine Prüfziffer enthält, die auf einem Modulo-11-Verfahren basiert.
@@ -65,20 +67,20 @@ Durch diesen Aufbau können Einzelfehler und Ziffernvertauschungen erkannt werde
 \end{equation}
 In dieser Menge sind ausnahmslos alle Gewichte enthalten, die in der Kongruenz (\ref{eq:ISBN-10-Prüfziffer}) verwendet werden. Ein grundlegendes mathematisches Prinzip besagt, dass ein Prüfziffercode mit der Beziehung $\sum_i g_i v_i \equiv 0 \pmod{p}$ genau dann in der Lage ist, alle Einzelfehler an einer Stelle $k$ zu erkennen, wenn das entsprechende Gewicht $g_k$ ein Element der Menge $\mathbb{Z}^*_p$ ist, also teilerfremd zum Modul $p$ ist.
 
-Da bei der ISBN-10 alle Gewichte (1 bis 10) Elemente von $\mathbb{Z}^*_{11}$ sind und somit teilerfremd zu 11, erkennt der Code jeden Einzelfehler. Dies lässt sich mathematisch wie folgt begründen: Wenn eine Ziffer $v_i$ fehlerhaft als $v'_i$ gelesen wird, ändert sich die gewichtete Summe um $g_i \cdot (v'_i - v_i)$. Diese Änderung kann nur dann kongruent zu 0 modulo 11 sein, wenn entweder $g_i \equiv 0 \pmod{11}$ oder $v'_i - v_i \equiv 0 \pmod{11}$ gilt. Da $g_i$ teilerfremd zu 11 ist, bleibt nur $v'_i \equiv v_i \pmod{11}$ als Möglichkeit, was bedeutet, dass kein Fehler vorliegen kann.
-
-Für die Erkennung von Vertauschungsfehlern gilt ein weiteres mathematisches Prinzip: Ein Prüfziffercode erkennt eine Vertauschung der Ziffern $v_k$ mit $v_l$ genau dann, wenn die Differenz der Gewichte $g_k - g_l$ ein Element der Menge $\mathbb{Z}^*_p$, also teilerfremd zum Modul $p$ ist. Bei der ISBN-10 ist jede Differenz zweier verschiedener Gewichte ein Element von $\mathbb{Z}^*_{11}$, da die Differenz zweier verschiedener Zahlen aus $\{1,2,\ldots,10\}$ nie durch 11 teilbar sein kann.
-
-Mathematisch ausgedrückt: Bei einer Vertauschung zweier Ziffern $v_k$ und $v_l$ ändert sich die gewichtete Summe um $(g_k - g_l)(v_l - v_k)$. Da sowohl die Gewichtsdifferenz $g_k - g_l$ als auch die Zifferndifferenz $v_l - v_k$ (sofern die Ziffern unterschiedlich sind) nicht durch 11 teilbar sind, kann diese Änderung nicht kongruent zu 0 modulo 11 sein. Damit wird jede Vertauschung zweier unterschiedlicher Ziffern erkannt.
-
-Ein besonderes Merkmal der ISBN-10 ist, dass als Prüfziffer auch der Wert 10 vorkommen kann, der dann durch das Zeichen 'X' dargestellt wird. Dies kann zu Verwirrung führen, da 'X' keine Dezimalziffer im eigentlichen Sinne ist und in manchen Systemen zu Verarbeitungsproblemen führen kann.
-
+Da bei der ISBN-10 alle Gewichte (1 bis 10) Elemente von $\mathbb{Z}^*_{11}$ sind und somit teilerfremd zu 11, erkennt der Code jeden Einzelfehler. Dies lässt sich mathematisch wie folgt begründen: Wenn eine Ziffer $v_i$ fehlerhaft als $v'_i$ gelesen wird, ändert sich die gewichtete Summe um $g_i \cdot (v'_i - v_i)$. Diese Änderung kann nur dann kongruent zu 0 modulo 11 sein, wenn entweder $g_i \equiv 0 \pmod{11}$ oder $v'_i - v_i \equiv 0 \pmod{11}$ gilt. Da $g_i$ teilerfremd zu 11 ist, bleibt nur $v'_i \equiv v_i \pmod{11}$ als Möglichkeit, was bedeutet, dass kein Fehler vorliegen kann. \newline
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{isbn_aufbau.png}
     \caption{Beispiel für eine ISBN-13 \cite{Hoffmann2023-sv}}
     \label{fig:ISBN-13-Beispiel}
 \end{wrapfigure}
+Für die Erkennung von Vertauschungsfehlern gilt ein weiteres mathematisches Prinzip: Ein Prüfziffercode erkennt eine Vertauschung der Ziffern $v_k$ mit $v_l$ genau dann, wenn die Differenz der Gewichte $g_k - g_l$ ein Element der Menge $\mathbb{Z}^*_p$, also teilerfremd zum Modul $p$ ist. Bei der ISBN-10 ist jede Differenz zweier verschiedener Gewichte ein Element von $\mathbb{Z}^*_{11}$, da die Differenz zweier verschiedener Zahlen aus $\{1,2,\ldots,10\}$ nie durch 11 teilbar sein kann.
+
+Mathematisch ausgedrückt: Bei einer Vertauschung zweier Ziffern $v_k$ und $v_l$ ändert sich die gewichtete Summe um $(g_k - g_l)(v_l - v_k)$. Da sowohl die Gewichtsdifferenz $g_k - g_l$ als auch die Zifferndifferenz $v_l - v_k$ (sofern die Ziffern unterschiedlich sind) nicht durch 11 teilbar sind, kann diese Änderung nicht kongruent zu 0 modulo 11 sein. Damit wird jede Vertauschung zweier unterschiedlicher Ziffern erkannt.
+
+Ein besonderes Merkmal der ISBN-10 ist, dass als Prüfziffer auch der Wert 10 vorkommen kann, der dann durch das Zeichen 'X' dargestellt wird. Dies kann zu Verwirrung führen, da 'X' keine Dezimalziffer im eigentlichen Sinne ist und in manchen Systemen zu Verarbeitungsproblemen führen kann.
+
+
 
 Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code (vgl. Abschnitt \ref{sec:ean13}) basiert und dieselbe Struktur mit alternierenden Gewichten (1 und 3) und Modulo 10 verwendet. Ein Beispiel für eine ISBN-13 mit den Bedeutung der einzelnen Ziffern ist in Abbildung \ref{fig:ISBN-13-Beispiel} dargestellt.
 
