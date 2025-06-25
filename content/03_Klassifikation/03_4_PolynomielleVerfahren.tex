@@ -27,8 +27,6 @@ Der Grad des Prüfzifferrests \(r\) ist immer kleiner als der Grad des Generator
     \item zwei beliebige falsche Bits an beliebiger Stelle im Wort
     \item ein Bündelfehler mit einer Breite von bis zu 32 Bits
 \end{itemize}
-\todo[inline]{Fehlererkennung tiefer ausführen? Evtl. Schaltungsgrafik einfügen und Einfachheit der Hardwareimplementierung erwähnen?}
-\todo[inline]{Fazit mit Vor- und Nachteilen?}
 
 \section{Reed-Solomon-Codes} \label{sec:reed_solomon_codes}
 Durch die \ac{CRC}-Verfahren ist es möglich, Fehler in Datenströmen zu erkennen, jedoch nicht zu korrigieren. Dies eignet sich gut für Anwenungen , bei denen eine erneute Übertragung der Daten möglich ist, wie zum Beispiel in Netzwerken. In anderen Anwendungsfällen, wie der Datenspeicherung, zum Beispiel bei CDs oder DVDs, oder kritischer Kommunikation ist es jedoch notwendig, Fehler nicht nur zu erkennen, sondern auch automatisch zu korrigieren. Hier kommen die Reed-Solomon-Codes zum Einsatz \cite{Springer_RS}.
