@@ -3,7 +3,7 @@
 %% Dokumentenklasse
 \documentclass[%
     paper=a4,           % DIN A4
-    12pt,               % Schriftgröße 12
+    11pt,               % Schriftgröße 12
     parskip=full,       % eine Zeile Absatzabstand
     oneside,            % einseitig
     listof=totoc,		% alle Verzeichnisse in ToC einbinden
@@ -17,7 +17,6 @@
 \usepackage[utf8]{inputenc}         	% Quelldateicodierung
 \usepackage[T1]{fontenc}	            % Fontmap-Kodierung, diese wird von der pdflatex-Engine benötigt
 \usepackage[english, ngerman]{babel}	% Sprache
-
 
 %% ifDocType Befehlsdefinition
 \newcommand{\ifDocType}[3]{%
@@ -35,6 +34,8 @@
 ]{geometry}
 
 \usepackage[onehalfspacing]{setspace}   % Zeilenabstand
+
+
 
 % Schriftart
 % \usepackage{helvet}     % Arial like
@@ -93,7 +94,9 @@
 \usepackage{pdflscape}              % Querformat
 \usepackage{enumitem}               % Aufzählungsstile
 
+\setlist[itemize]{itemsep=5pt, topsep=0pt, partopsep=0pt, parsep=0pt}
 
+\setlist[enumerate]{itemsep=5pt, topsep=0pt, partopsep=0pt, parsep=0pt}
 
 % Setzen des Pfads zu Inkscape
 \svgsetup{
@@ -175,9 +178,10 @@
 \addtokomafont{subsection}{\color{chapterBlue}}
 \addtokomafont{subsubsection}{\color{chapterBlue}}
 \RedeclareSectionCommand[beforeskip=0pt,afterindent=false,afterskip=1em]{chapter}
-\RedeclareSectionCommand[beforeskip=0pt,afterindent=false,afterskip=1em]{section}
-\RedeclareSectionCommand[beforeskip=0pt,afterindent=false,afterskip=1em]{subsection}
-\RedeclareSectionCommand[beforeskip=0pt,afterindent=false,afterskip=1em]{subsubsection}
+\RedeclareSectionCommand[beforeskip=0pt,afterindent=false,afterskip=0.5em]{section}
+\RedeclareSectionCommand[beforeskip=0pt,afterindent=false,afterskip=0.5em]{subsection}
+\RedeclareSectionCommand[beforeskip=0pt,afterindent=false,afterskip=0.5em]{subsubsection}
+
 
 %% Caption Style (Bsp.: Bilderunterschrift)
 \addtokomafont{caption}{\small}

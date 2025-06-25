@@ -2,7 +2,6 @@
 
 \chapter{Gewichtsverfahren}
 
-
 \section{EAN-13}
 \label{sec:ean13}
 
@@ -12,15 +11,13 @@ Die gebräuchliche EAN-13 besteht aus insgesamt 13 Ziffern, wobei die letzte Zif
 
 Zur Berechnung der Prüfziffer werden die ersten 12 Ziffern positionsabhängig mit alternierenden Gewichten von 1 und 3 multipliziert. Anschließend werden die Produkte aufsummiert. Die Prüfziffer ergibt sich als diejenige Zahl, die zur gebildeten Summe addiert werden muss, um ein durch 10 teilbares Ergebnis zu erhalten. Formal ausgedrückt entspricht die Prüfziffer dem Wert, der notwendig ist, um die alternierend gewichtete Quersumme modulo 10 auf null zu ergänzen.
 
-Die EAN-13 ist wie folgt aufgebaut:
-
+Die EAN-13 ist wie folgt aufgebaut:\newline
 % EAN-13 Prüfzifferberechnung
 \begin{equation}
 v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9 v_{10} v_{11} v_{12}
 \end{equation}
 
-Für eine EAN-13 ist die Berechnung der Prüfziffer \( v_{12} \) wie folgt:
-
+Für eine EAN-13 ist die Berechnung der Prüfziffer \( v_{12} \) wie folgt: \newline
 \begin{equation}
 \sum_{i \text{ gerade}} v_i + \sum_{i \text{ ungerade}} 3v_i \equiv 0 \pmod{10}
 \end{equation}
@@ -50,26 +47,21 @@ Dieses Verfahren gewährleistet eine effiziente Plausibilitätskontrolle der EAN
 Ein ebenfalls weit verbreitetes Beispiel für ein Gewichtsverfahren ist die \ac{ISBN}, die in der Buchindustrie zur eindeutigen Identifikation von Büchern verwendet wird. 
 Bis Ende 2006 wurde die ISBN-10 verwendet, die aus 10 Ziffern besteht und eine Prüfziffer enthält, die auf einem Modulo-11-Verfahren basiert.
 
-Die ISBN-10 ist wie folgt aufgebaut:
-
+Die ISBN-10 ist wie folgt aufgebaut: \newline
 \begin{equation}
 \label{eq:ISBN-10}
 v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9,
 \end{equation}
 
-wobei die folgende Vorschrift für die Prüfziffer gilt:
-
+wobei die folgende Vorschrift für die Prüfziffer gilt: \newline
 \begin{equation}
 \label{eq:ISBN-10-Prüfziffer}
         10v_0 + 9v_1 + 8v_2 + 7v_3 + 6v_4 + 5v_5 + 4v_6 + 3v_7 + 2v_8 + 1v_9 \equiv 0 \pmod{11}
 \end{equation}
-
 Durch diesen Aufbau können Einzelfehler und Ziffernvertauschungen erkannt werden. Die mathematische Begründung hierfür lässt sich wie folgt darstellen: Durch die Verwendung der Primzahl 11 als Modul wird die Menge $\mathbb{Z}^*_{11}$ gebildet, die alle Zahlen zwischen 1 und 10 umfasst:
-
 \begin{equation}
-\mathbb{Z}^*_{11} = \mathbb{Z}_{11} \setminus \{0\} = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}
+\mathbb{Z}^*_{11} = \mathbb{Z}_{11} \setminus \{0\} = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\} 
 \end{equation}
-
 In dieser Menge sind ausnahmslos alle Gewichte enthalten, die in der Kongruenz (\ref{eq:ISBN-10-Prüfziffer}) verwendet werden. Ein grundlegendes mathematisches Prinzip besagt, dass ein Prüfziffercode mit der Beziehung $\sum_i g_i v_i \equiv 0 \pmod{p}$ genau dann in der Lage ist, alle Einzelfehler an einer Stelle $k$ zu erkennen, wenn das entsprechende Gewicht $g_k$ ein Element der Menge $\mathbb{Z}^*_p$ ist, also teilerfremd zum Modul $p$ ist.
 
 Da bei der ISBN-10 alle Gewichte (1 bis 10) Elemente von $\mathbb{Z}^*_{11}$ sind und somit teilerfremd zu 11, erkennt der Code jeden Einzelfehler. Dies lässt sich mathematisch wie folgt begründen: Wenn eine Ziffer $v_i$ fehlerhaft als $v'_i$ gelesen wird, ändert sich die gewichtete Summe um $g_i \cdot (v'_i - v_i)$. Diese Änderung kann nur dann kongruent zu 0 modulo 11 sein, wenn entweder $g_i \equiv 0 \pmod{11}$ oder $v'_i - v_i \equiv 0 \pmod{11}$ gilt. Da $g_i$ teilerfremd zu 11 ist, bleibt nur $v'_i \equiv v_i \pmod{11}$ als Möglichkeit, was bedeutet, dass kein Fehler vorliegen kann.
@@ -93,16 +85,14 @@ Die ISBN-13 verwendet die Präfixe 978 oder 979-1 bis 979-9 und integriert dadur
 
 \section{Luhn-Algorithmus}
 
-Der Luhn-Algorithmus oder auch Modulo-10-Algorithmus ist ein weiteres Beispiel für ein Gewichtsverfahren und wird verwendet, um eine Prüfzimmer zu berechnen, mit der sich unter anderem Kredidkartennummern, Indentifikationsnummern oder andere finanzielle Kennnummern valieren lassen.
+Der Luhn-Algorithmus oder auch Modulo-10-Algorithmus ist ein weiteres Beispiel für ein Gewichtsverfahren und wird verwendet, um eine Prüfzimmer zu berechnen, mit der sich unter anderem Kredidkartennummern,Indentifikationsnummern oder andere finanzielle Kennnummern valieren lassen.
 Er wurde bereits 1954 von dem deutschen Informatiker Hans Peter Luhn patentiert und seitdem angewendet.
 
-Im Folgenden wird der Luhn-Algorithmus exemplarisch anhand von Kreditkartennummern erläutert, da diese zu den verbreitetsten Anwendungsfällen zählen. Eine Kreditkartennummer besteht aus einer vierzehnstelligen Basisnummer sowie einer zu berechnenden Prüfziffer~$p_0$. Die Ziffern seien durch $v_i \in \{0, \dots, 9\}$ bezeichnet, wobei $i = 0, \dots, 13$.
-
+Im Folgenden wird der Luhn-Algorithmus exemplarisch anhand von Kreditkartennummern erläutert, da diese zu den verbreitetsten Anwendungsfällen zählen. Eine Kreditkartennummer besteht aus einer vierzehnstelligen Basisnummer sowie einer zu berechnenden Prüfziffer~$p_0$. Die Ziffern seien durch $v_i \in \{0, \dots, 9\}$ bezeichnet, wobei $i = 0, \dots, 13$. \newline
 \begin{equation}
 \label{eq:Luhn}
 v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9 v_{10} v_{11} v_{12} v_{13} \, p_0
 \end{equation}
-
 Zur Berechnung der Prüfziffer~$p_0$ wird folgendermaßen vorgegangen:
 
 \begin{enumerate}
@@ -113,20 +103,17 @@ Zur Berechnung der Prüfziffer~$p_0$ wird folgendermaßen vorgegangen:
   \item Die Prüfziffer~$p_0$ wird so gewählt, dass $S + p_0$ ein Vielfaches von~$10$ ist.
 \end{enumerate}
 
-Die Gesamtsumme~$S$ ergibt sich damit formal zu:
-
-\begin{equation}
+Die Gesamtsumme~$S$ ergibt sich damit formal zu: \newline \begin{equation}
 \label{eq:Luhn-Summe-fallunterscheidung}
 S = \sum_{i=0}^{13}
 \begin{cases}
 v_i, & \text{wenn $i$ gerade (von rechts gezählt)} \\
 2v_i, & \text{wenn $i$ ungerade und } 2v_i < 10 \\
-\displaystyle \sum_{j=0}^{1} z_j, & \text{wenn $i$ ungerade und } 2v_i \geq 10;\ z_j \text{als Ziffern von } 2v_i
+\displaystyle \sum_{j=0}^{1} z_j, & \text{wenn $i$ ungerade und } 2v_i \geq 10;\ z_j \text{ als Ziffern von } 2v_i
 \end{cases}
 \end{equation}
 
-Alternativ lässt sich die Gesamtsumme auch in kompakterer Notation durch eine verschachtelte Summe darstellen:
-
+Alternativ lässt sich die Gesamtsumme auch in kompakterer Notation durch eine verschachtelte Summe darstellen: \newline
 \begin{equation}
 \label{eq:Luhn-Summe-quersumme}
 S = \sum_{\substack{0 \leq i \leq 13 \\ i\ \text{gerade (von rechts)}}} v_i
@@ -140,20 +127,13 @@ S = \sum_{\substack{0 \leq i \leq 13 \\ i\ \text{gerade (von rechts)}}} v_i
 \right)
 \quad \text{mit } z_j \text{ als Ziffern von } 2v_i
 \end{equation}
-
-Die Prüfziffer~$p_0$ ergibt sich abschließend durch:
-
-\begin{equation}
+Die Prüfziffer~$p_0$ ergibt sich abschließend durch: \newline \begin{equation}
 \label{eq:Luhn-Pruefziffer}
 p_0 = (10 - (S \bmod 10)) \bmod 10
 \end{equation}
-
-Gegeben sei die 14-stellige Kreditkartennummer:
-
-\begin{equation*}
+Gegeben sei die 14-stellige Kreditkartennummer: \newline \begin{equation*}
 v = 4\ 9\ 1\ 6\ 4\ 9\ 4\ 0\ 3\ 1\ 4\ 1\ 7\ 2
 \end{equation*}
-
 Die Ziffern werden von rechts nach links mit den Indizes $i = 13$ (linke Ziffer) bis $i = 0$ (rechte Ziffer) nummeriert:
 
 \begin{center}
@@ -179,18 +159,12 @@ $i$ & $v_i$ & Position (von rechts) & $2v_i$ & Anzuwendender Wert \\
 \end{tabular}
 \end{center}
 
-Die Summe der anzuwendenden Werte ergibt:
-
-\begin{equation*}
+Die Summe der anzuwendenden Werte ergibt: \newline \begin{equation*}
 S = 4 + 9 + 1 + 3 + 4 + 9 + 4 + 0 + 3 + 2 + 4 + 2 + 7 + 4 = 56
 \end{equation*}
-
-Die Prüfziffer~$p_0$ berechnet sich zu:
-
-\begin{equation*}
+Die Prüfziffer~$p_0$ berechnet sich zu: \newline \begin{equation*}
 p_0 = (10 - (56 \bmod 10)) \bmod 10 = (10 - 6) \bmod 10 = 4
 \end{equation*}
-
 Die vollständige Kreditkartennummer lautet somit: 4916\ 4940\ 3141\ 724.
 
 \todo{hier noch schreiben, warum das gut ist ? Erkennt man damit gut fehler oder wie ist das zu verstehen?}
