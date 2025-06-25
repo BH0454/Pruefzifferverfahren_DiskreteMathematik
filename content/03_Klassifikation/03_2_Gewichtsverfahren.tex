@@ -134,7 +134,7 @@ p_0 = (10 - (S \bmod 10)) \bmod 10
 Gegeben sei die 14-stellige Kreditkartennummer:
 
 \begin{equation*}
-v = 4\ 5\ 5\ 6\ 7\ 3\ 7\ 5\ 8\ 6\ 9\ 8\ 5\ 5
+v = 4\ 9\ 1\ 6\ 4\ 9\ 4\ 0\ 3\ 1\ 4\ 1\ 7\ 2
 \end{equation*}
 
 Die Ziffern werden von rechts nach links mit den Indizes $i = 13$ (linke Ziffer) bis $i = 0$ (rechte Ziffer) nummeriert:
@@ -144,20 +144,20 @@ Die Ziffern werden von rechts nach links mit den Indizes $i = 13$ (linke Ziffer)
 \hline
 $i$ & $v_i$ & Position (von rechts) & $2v_i$ & Anzuwendender Wert \\
 \hline
-13 & 4 & 14 (gerade) & – & 4 \\
-12 & 5 & 13 (ungerade) & 10 & 1 (1+0) \\
-11 & 5 & 12 (gerade) & – & 5 \\
+13 & 4 & 14 (gerade) & –  & 4 \\
+12 & 9 & 13 (ungerade) & 18 & 9 (1+8) \\
+11 & 1 & 12 (gerade) & –  & 1 \\
 10 & 6 & 11 (ungerade) & 12 & 3 (1+2) \\
-9 & 8 & 10 (gerade) & – & 8 \\
-8 & 5 & 9 (ungerade) & 10 & 1 (1+0) \\
-7 & 7 & 8 (gerade) & – & 7 \\
-6 & 3 & 7 (ungerade) & 6 & 6 \\
-5 & 7 & 6 (gerade) & – & 7 \\
-4 & 6 & 5 (ungerade) & 12 & 3 (1+2) \\
-3 & 5 & 4 (gerade) & – & 5 \\
-2 & 5 & 3 (ungerade) & 10 & 1 (1+0) \\
-1 & 5 & 2 (gerade) & – & 5 \\
-0 & 5 & 1 (ungerade) & 10 & 1 (1+0) \\
+9  & 4 & 10 (gerade) & –  & 4 \\
+8  & 9 & 9 (ungerade)  & 18 & 9 (1+8) \\
+7  & 4 & 8 (gerade) & –  & 4 \\
+6  & 0 & 7 (ungerade)  & 0  & 0 \\
+5  & 3 & 6 (gerade) & –  & 3 \\
+4  & 1 & 5 (ungerade)  & 2  & 2 \\
+3  & 4 & 4 (gerade) & –  & 4 \\
+2  & 1 & 3 (ungerade)  & 2  & 2 \\
+1  & 7 & 2 (gerade) & –  & 7 \\
+0  & 2 & 1 (ungerade)  & 4  & 4 \\
 \hline
 \end{tabular}
 \end{center}
@@ -165,13 +165,13 @@ $i$ & $v_i$ & Position (von rechts) & $2v_i$ & Anzuwendender Wert \\
 Die Summe der anzuwendenden Werte ergibt:
 
 \begin{equation*}
-S = 4 + 1 + 5 + 3 + 8 + 1 + 7 + 6 + 7 + 3 + 5 + 1 + 5 + 1 = 57
+S = 4 + 9 + 1 + 3 + 4 + 9 + 4 + 0 + 3 + 2 + 4 + 2 + 7 + 4 = 56
 \end{equation*}
 
 Die Prüfziffer~$p_0$ berechnet sich zu:
 
 \begin{equation*}
-p_0 = (10 - (57 \bmod 10)) \bmod 10 = (10 - 7) \bmod 10 = 3
+p_0 = (10 - (56 \bmod 10)) \bmod 10 = (10 - 6) \bmod 10 = 4
 \end{equation*}
 
-Die vollständige Kreditkartennummer lautet somit: 4556\ 7375\ 8698\ 553.
+Die vollständige Kreditkartennummer lautet somit: 4916\ 4940\ 3141\ 724.
