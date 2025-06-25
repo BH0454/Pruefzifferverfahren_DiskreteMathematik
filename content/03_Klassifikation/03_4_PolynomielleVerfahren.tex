@@ -2,28 +2,25 @@
 
 \chapter{Prüfzifferverfahren auf polynomieller Basis} \label{sec:polynomielle_verfahren}
 
-% \section{Mathematischer Hintergrund} \label{sec:poly_mathematischer_hintergrund}
-% \todo[inline]{Nötig? Vlt. Galois-Körper/Feld?}
-% -> in Grundlagen
+Die bisher vorgestellten gewichteten Prüfziffernverfahren werden vor allem in der Praxis eingesetzt um Identifikationsnummern wie ISBN, EAN oder Kreditkartennummern abzusichern. Für den Einsatz in der digitalen Datenübertragung, wie zum Beispiel in der Netzwerktechnik, hingegen sind Verfahren auf polynomieller Basis von zentraler Bedeutung. Diese Verfahren nutzen die algebraischen Eigenschaften von Polynomen über endlichen Körpern, um Fehler in Datenströmen zu erkennen und je nach Realisierung sogar zu korrigieren. Die wichtigsten Vertreter dieser Klasse sind \ac{CRC} Verfahren und Reed-Solomon-Codes.
 
 \section{\acl{CRC} (\acs{CRC}) Verfahren} \label{sec:crc_verfahren}
 \ac{CRC}-Verfahren sind eine Klasse von polynomiellen Prüfzifferverfahren, die speziell für die Fehlererkennung in digitalen Datenströmen entwickelt wurden. Somit können in der Praxis mehrere Übertragungsfehler in einer Nachricht erkannt werden. Dies kommt unter anderem im Ethernet-Protokoll oder auch bei der Kompression von ZIP-Archiven oder PNG-Bildern zum Einsatz \cite{Springer_CRC}.
 
-Da \ac{CRC} der Überprüfung binäre Daten dient, verwendet das Verfahren Polynome über dem endlichen Körper \(\text{GF}(2)\), also sogenannte binäre Polynome. Es wird das Galois-Feld \(\text{GF}(2)\) eingesetzt, ein endlicher Körper der nur zwei Elemente enthält: 0 und 1. Auch die für das Verfahren benötigten Rechenoperationen\todo{Ausführlicher erklären?} sind in dem Feld definiert \cite{Springer_CRC}.
+Da \ac{CRC} der Überprüfung binäre Daten dient, verwendet das Verfahren sogenannte binäre Polynome und den endlichen Galoiskörper \({GF}(2) = \) $\mathbb{Z}_2$ mit den Elementen \(0\) und \(1\). Auch die für das Verfahren benötigten Rechenoperationen sind in dem Feld definiert (vgl. Abschnitt \ref{sec:galois_fields}) \cite{Springer_CRC}.
 
-Die Grundidee des \ac{CRC}-Verfahrens ist es die Bitfolge als Polynom \(p(x)\) über \(\text{GF}(2)\) zu interpretieren. Dabei wird jedes Bit der Nachricht als Koeffizient des Polynoms betrachtet. So wird beispielsweise die Bitfolge \(p = 11011\) als Polynom \(p(x) = x^4 + x^3 + x^1 + x^0 = x^4 + x^3 + x^1 + 1\) dargestellt. Außerdem wird ein Generatorpolynom \(g(x)\) benötigt, welches die Struktur des \ac{CRC}-Verfahrens definiert. Je nach der genauen Implementierung des Verfahrens kommen unterschiedliche Generatorpolynome zum Einsatz, in der folgenden Erklärung wird ein zufälliges \(g = 110101\) mit \(g(x) = x^5 + x^4 + x^2 + 1\) verwendet. Der Grad des Generatorpolynoms \(g\) wird als \(r\) bezeichnet und legt die Anzahl an Prüfbits fest, in diesem Fall ist \(r = 5\) \cite{Springer_CRC}.
+Die Grundidee des \ac{CRC}-Verfahrens ist es die Bitfolge als Polynom \(p(x)\) über \({GF}(2)\) zu interpretieren. Dabei wird jedes Bit der Nachricht als Koeffizient des Polynoms betrachtet. So wird beispielsweise die Bitfolge \(p = 11011\) als Polynom \(p(x) = x^4 + x^3 + x^1 + x^0 = x^4 + x^3 + x^1 + 1\) dargestellt. Außerdem wird ein Generatorpolynom \(g(x)\) benötigt, welches die Struktur des \ac{CRC}-Verfahrens definiert. Je nach der genauen Implementierung des Verfahrens kommen unterschiedliche Generatorpolynome zum Einsatz, in der folgenden Erklärung wird ein zufälliges \(g = 110101\) mit \(g(x) = x^5 + x^4 + x^2 + 1\) verwendet. Der Grad des Generatorpolynoms \(g\) wird als \(r\) bezeichnet und legt die Anzahl an Prüfbits fest, in diesem Fall ist \(r = 5\) \cite{Springer_CRC}.
 
-Sollen nun die Nachricht \(d = 11011\) verschickt  werden, wird diese zunächst um \(r\) Nullen erweitert, sodass die Nachricht \(d' = 1101100000\) lautet. Anschließend wird die Division des erweiterten Polynoms \(d'(x)\) durch das Generatorpolynom \(g(x)\) durchgeführt. Der Rest dieser Division, der sogenannte Prüfzifferrest \(r(x)\), wird anstelle der erweiterten Nullen an die ursprüngliche Nachricht angehängt, um die vollständige Nachricht \(c(x)\) zu erhalten\todo{Rechnung überprüfen}:
+Sollen nun die Nachricht \(d = 11011\) verschickt  werden, wird diese zunächst um \(r\) Nullen erweitert, sodass die Nachricht \(d' = 1101100000\) lautet. Anschließend wird die Division des erweiterten Polynoms \(d'(x)\) durch das Generatorpolynom \(g(x)\) durchgeführt. Der Rest dieser Division, der sogenannte Prüfzifferrest \(r(x)\), wird anstelle der erweiterten Nullen an die ursprüngliche Nachricht angehängt, um die vollständige Nachricht \(c(x)\) zu erhalten. Die Rechnung kann aufgrund der Nutzung von \(GF(2)\) sehr einfach umgesetzt und in Hardware implementiert werden (vgl. Formel \ref{eq:crc_rechnung}):
 
 \begin{equation}
-\begin{aligned}
-    p'(x) &= p(x) \cdot x^r = (x) \cdot x^5 = 1101100000 \\
-    r(x) &= p'(x) \bmod g(x) = 1101100000 \bmod 110101 = 101 \\
-    c(x) &= p'(x) + r(x) = 1101100000 + 101 = 1101100101
-\end{aligned}
+\label{eq:crc_rechnung}
+\begin{alignedat}{2}
+    &p'(x) &&= p(x) \cdot 2^r = (x) \cdot 2^5 = 1101100000 \\
+    &r(x)  &&= p'(x) \bmod g(x) = 1101100000 \bmod 110101 = 101 \\
+    &c(x)  &&= p'(x) + r(x) = 1101100000 + 101 = 1101100101
+\end{alignedat}
 \end{equation}
-
-\todo{Dargestellte Rechnung aufgrund GF(2) sehr einfach und hardwarefreundlich, entspricht eigentlich Polynomdivison mit Rest, ...? -> genaue Operationen erklären, usw.?}
 
 Der Grad des Prüfzifferrests \(r\) ist immer kleiner als der Grad des Generatorpolynoms \(g\), sodass die Prüfziffer immer eine Länge von \(r\) Bits hat. Die vollständige Nachricht \(c(x)\) wird dann an den Empfänger gesendet. Durch die Berechnungen wird sichergestellt, dass das Generatorpolynom \(g(x)\) ein Teiler der Prüfziffer ist. Dadurch kann der Empfänger die Integrität der Nachricht überprüfen, indem er die gleiche Division durchführt und den Rest \(r'(x)\) berechnet. Ist dieser Rest gleich Null, ist die Nachricht fehlerfrei empfangen worden. Andernfalls wurde ein Fehler erkannt. Jedoch ist zu beachten, dass auch bei einem Fehler der Rest nicht immer ungleich Null sein muss. Es gilt bei der Wahl des Generatorpolynoms \(g(x)\) darauf zu achten, dass dieses möglichst wenige Fehlerkonstellationen unentdeckt lässt. Im Ethernet-Protokoll wird beispielsweise \ac{CRC}-32 mit dem Generatorpolynom \(g(x) = x^{32} + x^{26} + x^{23} + x^{22} + x^{16} + x^{12} + x^{11} + x^{10} + x^{8} + x^{7} + x^{5} + x^{4} + x^{2} + 1\) verwendet \cite{Springer_CRC}. Dadurch können bei einer Wortbreite von 12112 Bits diese  Fehlerkonstellationen sicher erkannt werden:
 
@@ -39,7 +36,7 @@ Der Grad des Prüfzifferrests \(r\) ist immer kleiner als der Grad des Generator
 \section{Reed-Solomon-Codes} \label{sec:reed_solomon_codes}
 Durch die \ac{CRC}-Verfahren ist es möglich, Fehler in Datenströmen zu erkennen, jedoch nicht zu korrigieren. Dies eignet sich gut für Anwenungen , bei denen eine erneute Übertragung der Daten möglich ist, wie zum Beispiel in Netzwerken. In anderen Anwendungsfällen, wie der Datenspeicherung, zum Beispiel bei CDs oder DVDs, oder kritischer Kommunikation ist es jedoch notwendig, Fehler nicht nur zu erkennen, sondern auch automatisch zu korrigieren. Hier kommen die Reed-Solomon-Codes zum Einsatz \cite{Springer_RS}.
 
-Auch hier kommen Polynome zum Einsatz, in dem die Nachricht als Polynom  \(p(x)\) interpretiert wird. Jedoch werden im Vergleich zu dem \ac{CRC}-Verfahren nicht die einzelnen Bits als Koeffizienten verwendet, sondern die Nachricht wird als Folge von Symbolen, beziehungsweise als Blöcken von Bits, interpretiert. Die einzelnen Symbole stellen dann den Vorfaktor der Koeffizienten dar. So wird die Zahlenfolge \(2,1,7\) als Polynom \(p(x) = 2x^2 + 1x^1 + 7x^0\) dargestellt. Durch das Einsetzen von einer beliebigen Anzahl an Werten in \(p\), welche dem Empfänger bekannt sind, entstehen Punkte, die auf der durch \(p\) definierten Kurve liegen \cite{Springer_RS}. Der Sender verschickt nun sowohl die Nachricht, als auch die Punkte der Kurve. Auf Basis dieser Informationen findet anschließend die Integritätsprüfung der Nachricht statt \cite{Springer_RS}. Mit unserem einfachen Beispiel ergibt sich für die Funktionswerte:
+Auch diese Verfahren setzt auf Polynome, indem die Nachricht als Polynom  \(p(x)\) interpretiert wird. Jedoch werden im Vergleich zu dem \ac{CRC}-Verfahren nicht die einzelnen Bits als Koeffizienten verwendet, sondern die Nachricht wird als Folge von Symbolen, beziehungsweise als Blöcken von Bits, interpretiert. Die einzelnen Symbole stellen dann den Vorfaktor der Koeffizienten dar. So wird die Zahlenfolge \(2,1,7\) als Polynom \(p(x) = 2x^2 + 1x^1 + 7x^0\) dargestellt. Durch das Einsetzen von einer beliebigen Anzahl an Werten in \(p\), welche dem Empfänger bekannt sind, entstehen Punkte, die auf der durch \(p\) definierten Kurve liegen. Der Sender verschickt nun die Punkte der Kurve. Auf Basis dieser Informationen kann der Empfänger die Nachricht durch Interpolation rekonstruieren \cite{Springer_RS}. Mit unserem einfachen Beispiel ergibt sich für die Funktionswerte:
 
 \begin{equation}
     \begin{aligned}
@@ -47,7 +44,7 @@ Auch hier kommen Polynome zum Einsatz, in dem die Nachricht als Polynom  \(p(x)\
     \end{aligned}
 \end{equation}
 
-Die aus den Punkten entstandene Kurve kann nun durch Interpolation rekonstruiert werden (vgl. Abbildung \ref{fig:rs_original}) und die Nachricht geprüft werden. Entsteht bei der Übertragung nun Fehler, zum Beispiel in Form von falschen Funktionswerten, kann jedoch auch eine falsche Interpretation der Kurve erfolgen (vgl. Abbildung \ref{fig:rs_fehler}) \cite{Springer_RS}.
+Entsteht bei der Übertragung nun Fehler, zum Beispiel in Form von falschen Funktionswerten, kann jedoch auch anstelle der eigentlichen Nachricht (vgl. Abbildung \ref{fig:rs_original}) eine falsche Interpretation der Kurve erfolgen (vgl. Abbildung \ref{fig:rs_fehler}) \cite{Springer_RS}.
 
 \begin{figure}[H]
         \begin{minipage}{0.48\textwidth}
@@ -65,17 +62,21 @@ Die aus den Punkten entstandene Kurve kann nun durch Interpolation rekonstruiert
         \end{minipage}
 \end{figure}
 
-Durch die Mehrheit der wahren Stützstellen gegenüber der fehlerhaften Stützstelle kann die ursprüngliche Kurve rekonstruiert werden. Dies ermöglicht es, die fehlerhaften Werte zu identifizieren und zu korrigieren. In diesem Beispiel können nicht mehr als zwei der richtigen Stützstellen auf der falschen Parabel liegen, dadurch ist die richtige Kurve eindeutig bestimmt. Dementsprechend ist die genaue Implementierung des Verfahrens davon abhängig, welche Arten von Fehlern erkannt und korrigiert werden sollen. Mit dem vorgestellten Beispiel ist es möglich, durch das Senden der sieben Funktionswerte \((10, 17, 28, 43, 62, 85, 112)\), die drei Zahlen \(2, 1, 7\) sicher zu übertragen. Bei unterschiedlichen Nachrichten unterscheiden sich die gesendeten Funktionswerte, aber nicht die Argumente die in der Prüfung und Berechnung verwendet werden. Die sichere Übertragung von Nachrichten aus drei Zahlen, beziehungsweise Symbolen, ist somit gewährleistet \cite{Springer_RS}.
+Durch die Mehrheit der wahren Stützstellen gegenüber der fehlerhaften Stützstelle kann die ursprüngliche Kurve rekonstruiert werden. Dies ermöglicht es, die fehlerhaften Werte zu identifizieren und zu korrigieren. In diesem Beispiel können nicht mehr als zwei Fehler abgefangen werden, bei einer höheren Anzahl kann die richtige Kurve nicht eindeutig bestimmt werden. Dementsprechend ist die genaue Implementierung des Verfahrens davon abhängig, welche Arten von Fehlern erkannt und korrigiert werden sollen \cite{Springer_RS}.
+
+Bei unterschiedlichen Nachrichten unterscheiden sich aufgrund der entsprechend unterschiedlichen Polynome die gesendeten Funktionswerte, aber nicht die Argumente die in der Prüfung und Berechnung verwendet werden. Die sichere Übertragung von Nachrichten aus drei Zahlen durch das Senden von sieben Werten ist somit gewährleistet, solange nicht mehr als zwei Übertragungsfehler auftreten \cite{Springer_RS}.
 
 Allgemein lässt sich dieses Verfahren wie folgt zusammenfassen: Eine Übertragung von \(k\) Symbolen, als Zahlen kodiert, nutzt eine Interpretation dieser Symbole als Polynom vom Grad \(k-1\). Der Sender sendet, um \(t\) Übertragungsfehler erfolgreich abzufangen, \(k + 2t\) Funktionswerte des Polynoms mit fest definierten Argumenten. Somit ist eine entsprechend sichere Übertragung garantiert \cite{Springer_RS}.
 
-Um dieses Verfahren zu implementieren, muss wie beschrieben eine Polynominterpolation durchgeführt werden, um aus den Funktionswerten die ursprüngliche Nachricht zu rekonstruieren. Für eine realistische Implementierung ist eine Einschränkung nötig. Es werden in der Praxis ausschließlich endliche Körper verwendet. Dadurch ist außerdem die Anzahl der benötigten Bits für die Kodierung klar definiert. Jeder endliche Körper \(\mathbb{Z}_n\) weist mindestens eine primitive Einheitswurzel \(\alpha\) auf, für die folgendes gilt:
+Um dieses Verfahren zu implementieren, muss wie beschrieben eine Polynominterpolation durchgeführt werden, um aus den Funktionswerten die ursprüngliche Nachricht zu rekonstruieren. Für eine realistische Implementierung ist eine Einschränkung nötig. Es werden in der Praxis ausschließlich endliche Körper, meist Galoiskörper aufgrund ihrer Vorteile (vgl. Abschnitt \ref{sec:galois_fields}), verwendet. Aufgrund der endlichen Möglichkeiten ist die Anzahl der benötigten Bits für die Kodierung klar definiert. Jeder endliche Körper \(\mathbb{Z}_n\) weist mindestens eine primitive Einheitswurzel \(\alpha\) auf, für die folgendes gilt:
 
 \begin{equation}
+    \label{eq:primitive_einheitswurzel}
     \alpha^k \bmod n, \quad \text{mit } \mathbb{Z}_n \text{ und } k \in [1, n]
 \end{equation}
 
-\todo[inline]{Primitive Einheitswurzel erklären?}
+Die Potenzen dieser Einheitswurzel \(\alpha\) erzeugen durch modulo-Operationen mit \(n\) alle Elemente des Körpers bis auf \(0\). Für die Berechnung der Funktionswerte werden nun die Elemente von $\mathbb{Z}_n$ als Argumente verwendet, in der Reihenfolge, in welcher sie von der Einheitswurzel erzeugt werden. Der Einsatz des endlichen Körpers und der Einheitswurzel reduziert die Anzahl der Möglichkeiten und die Komplexität der Berechnungen \cite{Springer_RS}.
 
+Durch eine diskrete Fouriertransformation kann die Nachricht als Polynom \(m(x)\) aus den richtig übertragenen Funktionswerten rekonstruiert werden. Bei einer fehlerhaften Übertragung (mit einer Anzahl an korrigierbaren Fehlern \(t\)) entsteht ein falsches Polynom \(r(x)\), welches sich um ein sogenanntes Fehlerpolynom \(e(x) = r(x) - m(x)\) von dem richtigen Polynom unterscheidet. Mithilfe der Einheitswurzel, dem kleinen Satz von Fermat und weiteren mathematischen Verfahren können anschließend die falsch übertragenen Funktionswerte bestimmt werden. Aus den verbleibenden, richtigen Funktionswerten kann trotz fehlerhafter Übertragung die ursprüngliche Nachricht rekonstruiert werden. Sollte jedoch die Anzahl der Übertragungsfehler \(t\) überschritten werden, ist eine eindeutige Rekonstruktion der Nachricht nicht mehr möglich \cite{Springer_RS}.
 
-
+Das genaue Verfahren zur Polynominterpolation ist sehr komplex, kann auf verschiedene Arten noch effizienter umgesetzt werden und würde den Rahmen dieser Arbeit sprengen. Die Vorteile von Reed-Solomon-Codes in Form von Fehlerkorrektur sind jedoch enorm. Ist ein mehrfacher Datenaustausch nicht möglich, wie zum Beispiel bei CDs oder DVDs, ist \ac{CRC} nicht ausreichend. Auch kritische Kommunikation, wie beispielsweise im Weltall, setzt auf sicheren Datenaustausch. Reed-Solomon-Codes können eine hohe Anzahl an Übertragungsfehlern abfangen und die Integrität der Daten sicherstellen. Sie sind in der Lage, mehrere Fehler in einem Block von Daten zu erkennen und zu korrigieren, was sie zu einer der am weitesten verbreiteten Methoden für die Fehlerkorrektur in digitalen Speichermedien macht \cite{Springer_RS}.
