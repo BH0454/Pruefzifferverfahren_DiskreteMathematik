@@ -10,7 +10,7 @@ def ist_gueltige_isbn10(isbn: str) -> bool:
         elif zeichen.isdigit():
             wert = int(zeichen)
         else:
-            return False  # Ungueltiges Zeichen
+            return False  
         summe += (10 - i) * wert
 
     return summe % 11 == 0

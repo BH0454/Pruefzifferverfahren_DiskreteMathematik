@@ -5,9 +5,9 @@ def pruefziffer_ean13(basis: str) -> int:
     summe = 0
     for i in range(12):
         ziffer = int(basis[i])
-        if i % 2 == 0:       # i gerade
+        if i % 2 == 0:       
             summe += ziffer
-        else:                # i ungerade
+        else:                
             summe += 3 * ziffer
 
     pruefziffer = (10 - (summe % 10)) % 10
