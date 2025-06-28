@@ -88,15 +88,15 @@ Die ISBN-13 verwendet die Präfixe 978 oder 979-1 bis 979-9 und integriert dadur
 
 \section{Luhn-Algorithmus}
 
-Der Luhn-Algorithmus oder auch Modulo-10-Algorithmus ist ein weiteres Beispiel für ein Gewichtsverfahren und wird verwendet, um eine Prüfzimmer zu berechnen, mit der sich unter anderem Kredidkartennummern,Indentifikationsnummern oder andere finanzielle Kennnummern valieren lassen.
-Er wurde bereits 1954 von dem deutschen Informatiker Hans Peter Luhn patentiert und seitdem angewendet.
+Der Luhn-Algorithmus oder auch Modulo-10-Algorithmus ist ein weiteres Beispiel für ein Gewichtsverfahren und wird verwendet, um eine Prüfzimmer zu berechnen, mit der sich unter anderem Kreditkartennummern, Indentifikationsnummern oder andere finanzielle Kennnummern valieren lassen. Dabei können Fehler an einzelnen Ziffern und in den meisten Fällen Vertauschungen von nebeneinanderliegenden Ziffern erkannt werden.
+Er wurde bereits 1954 von dem deutschen Informatiker Hans Peter Luhn patentiert und seitdem angewendet. \cite{Luhn_Algorithmus}.
 
-Im Folgenden wird der Luhn-Algorithmus exemplarisch anhand von Kreditkartennummern erläutert, da diese zu den verbreitetsten Anwendungsfällen zählen. Eine Kreditkartennummer besteht aus einer vierzehnstelligen Basisnummer sowie einer zu berechnenden Prüfziffer~$p_0$. Die Ziffern seien durch $v_i \in \{0, \dots, 9\}$ bezeichnet, wobei $i = 0, \dots, 13$. \newline
+Im Folgenden wird der Luhn-Algorithmus exemplarisch anhand von Kreditkartennummern erläutert, da diese zu den verbreitetsten Anwendungsfällen zählen. Eine Kreditkartennummer besteht aus einer Basisnummer, die vierzehn bis 16 Stellen hat und einer zu berechnenden Prüfziffer~$p_0$. Die Ziffern seien durch $v_i \in \{0, \dots, 9\}$ bezeichnet, wobei $i = 0, \dots, 13$. \newline
 \begin{equation}
 \label{eq:Luhn}
 v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9 v_{10} v_{11} v_{12} v_{13} \, p_0
 \end{equation}
-Zur Berechnung der Prüfziffer~$p_0$ wird folgendermaßen vorgegangen:
+Zur Berechnung der Prüfziffer~$p_0$ wird folgendermaßen vorgegangen \cite{Luhn_Algorithmus}:
 
 \begin{enumerate}
   \item Zähle die Stellen der Basisnummer von rechts nach links mit den Indizes $i = 13, 12, \dots, 0$.
@@ -134,7 +134,7 @@ Die Prüfziffer~$p_0$ ergibt sich abschließend durch: \newline \begin{equation}
 \label{eq:Luhn-Pruefziffer}
 p_0 = (10 - (S \bmod 10)) \bmod 10
 \end{equation}
-Gegeben sei die 14-stellige Kreditkartennummer: \newline \begin{equation*}
+Gegeben sei die 14-stellige Kreditkartennummer \cite{Luhn_Beispiel}: \newline \begin{equation*}
 v = 4\ 9\ 1\ 6\ 4\ 9\ 4\ 0\ 3\ 1\ 4\ 1\ 7\ 2
 \end{equation*}
 Die Ziffern werden von rechts nach links mit den Indizes $i = 13$ (linke Ziffer) bis $i = 0$ (rechte Ziffer) nummeriert:
