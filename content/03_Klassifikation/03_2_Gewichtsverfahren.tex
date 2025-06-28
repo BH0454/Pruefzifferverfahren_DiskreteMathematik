@@ -44,6 +44,8 @@ Dieses Verfahren gewährleistet eine effiziente Plausibilitätskontrolle der EAN
     \label{fig:ean13}
 \end{figure}
 
+In Anhang \ref{apx:1} ist ein Python-Skript zu finden, mit dem die Prüfziffer einer EAN-13 berechnet werden kann.
+
 \section{ISBN}
 \label{sec:isbn}
 
@@ -80,23 +82,23 @@ Mathematisch ausgedrückt: Bei einer Vertauschung zweier Ziffern $v_k$ und $v_l$
 
 Ein besonderes Merkmal der ISBN-10 ist, dass als Prüfziffer auch der Wert 10 vorkommen kann, der dann durch das Zeichen 'X' dargestellt wird. Dies kann zu Verwirrung führen, da 'X' keine Dezimalziffer im eigentlichen Sinne ist und in manchen Systemen zu Verarbeitungsproblemen führen kann.
 
-
-
 Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code (vgl. Abschnitt \ref{sec:ean13}) basiert und dieselbe Struktur mit alternierenden Gewichten (1 und 3) und Modulo 10 verwendet. Ein Beispiel für eine ISBN-13 mit den Bedeutung der einzelnen Ziffern ist in Abbildung \ref{fig:ISBN-13-Beispiel} dargestellt.
 
-Die ISBN-13 verwendet die Präfixe 978 oder 979-1 bis 979-9 und integriert dadurch die ISBN vollständig ins EAN-System. Die Umstellung von ISBN-10 auf ISBN-13 erfolgte primär aus praktischen Erwägungen: Durch die Erweiterung des Nummernraums können deutlich mehr Bücher eindeutig identifiziert werden. Zudem ermöglicht die Integration in das EAN-System eine nahtlose Verarbeitung in bestehenden logistischen Prozessen des Handels. Aus mathematischer Sicht ist jedoch die ISBN-10 mit ihrem Modulo-11-Verfahren dem neuen Format überlegen. Während die ISBN-10 durch ihre Primzahlbasis alle Vertauschungsfehler erkennt, kann die ISBN-13 mit ihrem Modulo-10-Verfahren bestimmte Ziffernvertauschungen nicht identifizieren. Die Vereinheitlichung mit dem EAN-System hat somit zu einer Verschlechterung der fehlererkennenden Eigenschaften geführt – ein klassischer Fall, bei dem praktische Anforderungen und theoretische Optimalität gegeneinander abgewogen werden mussten \cite{Hoffmann2023-sv}.
+Die ISBN-13 verwendet die Präfixe 978 oder 979-1 bis 979-9 und integriert dadurch die ISBN vollständig ins EAN-System. Die Umstellung von ISBN-10 auf ISBN-13 erfolgte primär aus praktischen Erwägungen: Durch die Erweiterung des Nummernraums können deutlich mehr Bücher eindeutig identifiziert werden. Zudem ermöglicht die Integration in das EAN-System eine nahtlose Verarbeitung in bestehenden logistischen Prozessen des Handels. Aus mathematischer Sicht ist jedoch die ISBN-10 mit ihrem Modulo-11-Verfahren dem neuen Format überlegen. Während die ISBN-10 durch ihre Primzahlbasis alle Vertauschungsfehler erkennt, kann die ISBN-13 mit ihrem Modulo-10-Verfahren bestimmte Ziffernvertauschungen nicht identifizieren. Die Vereinheitlichung mit dem EAN-System hat somit zu einer Verschlechterung der fehlererkennenden Eigenschaften geführt – ein klassischer Fall, bei dem praktische Anforderungen und theoretische Optimalität gegeneinander abgewogen werden mussten \cite{Hoffmann2023-sv}, \cite{Springer_CRC}.
+
+In Anhang \ref{apx:2} ist ein Python-Skript zu finden, mit dem eine ISBN-10 auf Gültigkeit geprüft werden.
 
 \section{Luhn-Algorithmus}
 
-Der Luhn-Algorithmus oder auch Modulo-10-Algorithmus ist ein weiteres Beispiel für ein Gewichtsverfahren und wird verwendet, um eine Prüfzimmer zu berechnen, mit der sich unter anderem Kredidkartennummern,Indentifikationsnummern oder andere finanzielle Kennnummern valieren lassen.
-Er wurde bereits 1954 von dem deutschen Informatiker Hans Peter Luhn patentiert und seitdem angewendet.
+Der Luhn-Algorithmus oder auch Modulo-10-Algorithmus ist ein weiteres Beispiel für ein Gewichtsverfahren und wird verwendet, um eine Prüfzimmer zu berechnen, mit der sich unter anderem Kreditkartennummern, Indentifikationsnummern oder andere finanzielle Kennnummern valieren lassen. Dabei können Fehler an einzelnen Ziffern und in den meisten Fällen Vertauschungen von nebeneinanderliegenden Ziffern erkannt werden.
+Er wurde bereits 1954 von dem deutschen Informatiker Hans Peter Luhn patentiert und seitdem angewendet. \cite{Luhn_Algorithmus}.
 
-Im Folgenden wird der Luhn-Algorithmus exemplarisch anhand von Kreditkartennummern erläutert, da diese zu den verbreitetsten Anwendungsfällen zählen. Eine Kreditkartennummer besteht aus einer vierzehnstelligen Basisnummer sowie einer zu berechnenden Prüfziffer~$p_0$. Die Ziffern seien durch $v_i \in \{0, \dots, 9\}$ bezeichnet, wobei $i = 0, \dots, 13$. \newline
+Im Folgenden wird der Luhn-Algorithmus exemplarisch anhand von Kreditkartennummern erläutert, da diese zu den verbreitetsten Anwendungsfällen zählen. Eine Kreditkartennummer besteht aus einer Basisnummer, die vierzehn bis 16 Stellen hat und einer zu berechnenden Prüfziffer~$p_0$. Die Ziffern seien durch $v_i \in \{0, \dots, 9\}$ bezeichnet, wobei $i = 0, \dots, 13$. \newline
 \begin{equation}
 \label{eq:Luhn}
 v_0 v_1 v_2 v_3 v_4 v_5 v_6 v_7 v_8 v_9 v_{10} v_{11} v_{12} v_{13} \, p_0
 \end{equation}
-Zur Berechnung der Prüfziffer~$p_0$ wird folgendermaßen vorgegangen:
+Zur Berechnung der Prüfziffer~$p_0$ wird folgendermaßen vorgegangen \cite{Luhn_Algorithmus}:
 
 \begin{enumerate}
   \item Zähle die Stellen der Basisnummer von rechts nach links mit den Indizes $i = 13, 12, \dots, 0$.
@@ -134,7 +136,7 @@ Die Prüfziffer~$p_0$ ergibt sich abschließend durch: \newline \begin{equation}
 \label{eq:Luhn-Pruefziffer}
 p_0 = (10 - (S \bmod 10)) \bmod 10
 \end{equation}
-Gegeben sei die 14-stellige Kreditkartennummer: \newline \begin{equation*}
+Gegeben sei die 14-stellige Kreditkartennummer \cite{Luhn_Beispiel}: \newline \begin{equation*}
 v = 4\ 9\ 1\ 6\ 4\ 9\ 4\ 0\ 3\ 1\ 4\ 1\ 7\ 2
 \end{equation*}
 Die Ziffern werden von rechts nach links mit den Indizes $i = 13$ (linke Ziffer) bis $i = 0$ (rechte Ziffer) nummeriert:
@@ -170,4 +172,8 @@ p_0 = (10 - (56 \bmod 10)) \bmod 10 = (10 - 6) \bmod 10 = 4
 \end{equation*}
 Die vollständige Kreditkartennummer lautet somit: 4916\ 4940\ 3141\ 724.
 
+
+
 \todo{hier noch schreiben, warum das gut ist ? Erkennt man damit gut fehler oder wie ist das zu verstehen?}
+
+In Anhang \ref{apx:3} ist ein Python-Skript zu finden, mit dem die Prüfziffer eines Luhn-Algorithmus bestimmt werden kann.
