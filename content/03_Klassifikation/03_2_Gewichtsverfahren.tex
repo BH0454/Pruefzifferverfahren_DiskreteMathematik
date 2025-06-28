@@ -44,6 +44,8 @@ Dieses Verfahren gewährleistet eine effiziente Plausibilitätskontrolle der EAN
     \label{fig:ean13}
 \end{figure}
 
+In Anhang \ref{apx:1} ist ein Python-Skript zu finden, mit dem die Prüfziffer einer EAN-13 berechnet werden kann.
+
 \section{ISBN}
 \label{sec:isbn}
 
@@ -80,11 +82,11 @@ Mathematisch ausgedrückt: Bei einer Vertauschung zweier Ziffern $v_k$ und $v_l$
 
 Ein besonderes Merkmal der ISBN-10 ist, dass als Prüfziffer auch der Wert 10 vorkommen kann, der dann durch das Zeichen 'X' dargestellt wird. Dies kann zu Verwirrung führen, da 'X' keine Dezimalziffer im eigentlichen Sinne ist und in manchen Systemen zu Verarbeitungsproblemen führen kann.
 
-
-
 Seit 2007 wird die ISBN-13 verwendet, die auf dem EAN-13-Code (vgl. Abschnitt \ref{sec:ean13}) basiert und dieselbe Struktur mit alternierenden Gewichten (1 und 3) und Modulo 10 verwendet. Ein Beispiel für eine ISBN-13 mit den Bedeutung der einzelnen Ziffern ist in Abbildung \ref{fig:ISBN-13-Beispiel} dargestellt.
 
-Die ISBN-13 verwendet die Präfixe 978 oder 979-1 bis 979-9 und integriert dadurch die ISBN vollständig ins EAN-System. Die Umstellung von ISBN-10 auf ISBN-13 erfolgte primär aus praktischen Erwägungen: Durch die Erweiterung des Nummernraums können deutlich mehr Bücher eindeutig identifiziert werden. Zudem ermöglicht die Integration in das EAN-System eine nahtlose Verarbeitung in bestehenden logistischen Prozessen des Handels. Aus mathematischer Sicht ist jedoch die ISBN-10 mit ihrem Modulo-11-Verfahren dem neuen Format überlegen. Während die ISBN-10 durch ihre Primzahlbasis alle Vertauschungsfehler erkennt, kann die ISBN-13 mit ihrem Modulo-10-Verfahren bestimmte Ziffernvertauschungen nicht identifizieren. Die Vereinheitlichung mit dem EAN-System hat somit zu einer Verschlechterung der fehlererkennenden Eigenschaften geführt – ein klassischer Fall, bei dem praktische Anforderungen und theoretische Optimalität gegeneinander abgewogen werden mussten \cite{Hoffmann2023-sv}.
+Die ISBN-13 verwendet die Präfixe 978 oder 979-1 bis 979-9 und integriert dadurch die ISBN vollständig ins EAN-System. Die Umstellung von ISBN-10 auf ISBN-13 erfolgte primär aus praktischen Erwägungen: Durch die Erweiterung des Nummernraums können deutlich mehr Bücher eindeutig identifiziert werden. Zudem ermöglicht die Integration in das EAN-System eine nahtlose Verarbeitung in bestehenden logistischen Prozessen des Handels. Aus mathematischer Sicht ist jedoch die ISBN-10 mit ihrem Modulo-11-Verfahren dem neuen Format überlegen. Während die ISBN-10 durch ihre Primzahlbasis alle Vertauschungsfehler erkennt, kann die ISBN-13 mit ihrem Modulo-10-Verfahren bestimmte Ziffernvertauschungen nicht identifizieren. Die Vereinheitlichung mit dem EAN-System hat somit zu einer Verschlechterung der fehlererkennenden Eigenschaften geführt – ein klassischer Fall, bei dem praktische Anforderungen und theoretische Optimalität gegeneinander abgewogen werden mussten \cite{Hoffmann2023-sv}, \cite{Springer_CRC}.
+
+In Anhang \ref{apx:2} ist ein Python-Skript zu finden, mit dem eine ISBN-10 auf Gültigkeit geprüft werden.
 
 \section{Luhn-Algorithmus}
 
@@ -173,4 +175,8 @@ p_0 = (10 - (56 \bmod 10)) \bmod 10 = (10 - 6) \bmod 10 = 4
 \end{equation*}
 Die vollständige Kreditkartennummer lautet somit: 4916\ 4940\ 3141\ 724.
 
+
+
 \todo{hier noch schreiben, warum das gut ist ? Erkennt man damit gut fehler oder wie ist das zu verstehen?}
+
+In Anhang \ref{apx:3} ist ein Python-Skript zu finden, mit dem die Prüfziffer eines Luhn-Algorithmus bestimmt werden kann.
