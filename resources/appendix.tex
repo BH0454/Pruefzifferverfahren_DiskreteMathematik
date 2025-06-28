@@ -1,19 +1,21 @@
 %!TEX root = ../main.tex
 
-\addchap{Anhang}
-\begin{itemize}
-	\item \ref{apx:1} Anhang 1 \dotfill{} \pageref{apx:1}
-	\item \ref{apx:2} Anhang 2 \dotfill{} \pageref{apx:2}
-\end{itemize}
+% \addchap{Anhangsverzeichnis}
+% \begin{itemize}
+% 	\item \ref{apx:1} Python-Skript \dotfill{} \pageref{apx:1}
+% 	\item \ref{apx:2} ISBN-Skript \dotfill{} \pageref{apx:2}
+% 	\item \ref{apx:2} Luhn \dotfill{} \pageref{apx:2}
+% \end{itemize}
 
-\chapter{Anhang 1}
+\chapter{Anhang}
+
 \label{apx:1}
 \lstinputlisting[language=python, caption={Beispiel zur Bestimmung einer EAN-13 Prüfziffer}, captionpos=t, label=scr:mypython]{resources/python_scripts/EAN13.py}
 
-\chapter{Anhang 2}
 \label{apx:2}
 \lstinputlisting[language=python, caption={Beispiel zur Verifizierung einer ISBN-10} Nummer, captionpos=t, label=scr:mypython]{resources/python_scripts/ISBN.py}
 
-\chapter{Anhang 3}
+\newpage
+
 \label{apx:3}
 \lstinputlisting[language=python, caption={Beispiel Bestimmung einer Prüfziffer einer Kreditkartennummer mittels Luhn-Algorithmus}, captionpos=t, label=scr:mypython]{resources/python_scripts/Luhn.py}
