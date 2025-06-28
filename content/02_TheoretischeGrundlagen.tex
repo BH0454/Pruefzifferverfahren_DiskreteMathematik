@@ -1,21 +1,18 @@
 %!TEX root = ../main.tex
 
-\chapter{Theoretische Grundlagen}
+\chapter{Theoretische Grundlagen} \label{chap:theoretische_grundlagen}
 
-Für das Verständnis der in dieser Arbeit behandelten Prüfzifferverfahren sind einige grundlegende mathematische Konzepte und Definitionen notwendig. Diese Grundlagen sollen im Folgenden kurz erläutert werden.
+Für das Verständnis der in dieser Arbeit behandelten Prüfziffernverfahren sind einige grundlegende mathematische Konzepte und Definitionen notwendig. Diese Grundlagen sollen im Folgenden kurz erläutert werden. Dazu zählen unter anderem die Unterscheidung zwischen Fehlererkennung und Fehlerkorrektur (vgl. Abschnitt \ref{sec:fehlererkennung_vs_fehlerkorrektur}), sowie die Definition von Galoiskörpern (vgl. Abschnitt \ref{sec:galois_fields}), welche bei Verfahren auf polynomieller Basis eingesetzt werden. Diese Konzepte bilden die Basis für die in den folgenden Kapiteln vorgestellten Prüfziffernverfahren und deren mathematische Funktionsweise.
 
 
-
-\section{Fehlererkennung vs. Fehlerkorrektur}
-
+\section{Fehlererkennung vs. Fehlerkorrektur} \label{sec:fehlererkennung_vs_fehlerkorrektur}
 Bei der Informationsübertragung und -speicherung unterscheidet man grundsätzlich zwei Arten des Umgangs mit Fehlern:
 
 \begin{itemize}
     \item \textbf{Fehlererkennung:} Ein Verfahren zur Fehlererkennung ermöglicht die Detektion von Übertragungsfehlern mittels redundanter Information, kann jedoch die ursprüngliche Nachricht nicht rekonstruieren. Prüfzifferverfahren implementieren in der Regel ausschließlich diese Funktionalität.
 
-    \item \textbf{Fehlerkorrektur:} Diese fortgeschritteneren Verfahren ermöglichen nicht nur die Erkennung, sondern auch die Korrektur von Fehlern ohne erneute Übertragung der Originaldaten. Sie basieren auf komplexeren mathematischen Konstrukten wie Hamming-Codes oder Reed-Solomon-Codes und erfordern einen höheren Grad an Redundanz.
+    \item \textbf{Fehlerkorrektur:} Diese fortgeschritteneren Verfahren ermöglichen nicht nur die Erkennung, sondern auch die Korrektur von Fehlern ohne erneute Übertragung der Originaldaten. Sie basieren auf komplexeren mathematischen Konstrukten wie Hamming-Codes oder Reed-Solomon-Codes (vgl. Abschnitt \ref{sec:reed_solomon_codes}) und erfordern einen höheren Grad an Redundanz.
 \end{itemize}
-
 
 
 \section{Galoiskörper} \label{sec:galois_fields}
@@ -23,7 +20,7 @@ Galoiskörper, benannt nach dem französischen Mathematiker Évariste Galois, si
 
 Es existieren die Galoiskörper \(GF(p^n)\), deren Anzahl an Elementen immer eine Potenz einer Primzahl ist, wobei \(p\) die Primzahl und \(n\) eine positive ganze Zahl ist. Es gibt beispielsweise einen Körper mit \(2^3 = 8\) Elementen, aber keinen mit \(10\) Elementen. Für \(n = 1\) entspricht der Galoiskörper \(GF(p^1)\) dem bekannten Restklassenkörper \(\mathbb{Z}_p\), der aus den Restklassen modulo \(p\) besteht \cite{Springer_RS}.
 
-Die Konstruktion von Galoiskörpern für \(n > 1\) erfolgt durch die Erweiterung von \(\mathbb{Z}_p\) mittels irreduzibler Polynome. Ein irreduzibles Polynom über \(\mathbb{Z}_p\) ist ein Polynom, das sich nicht in Faktoren zerlegen lässt, die ebenfalls in \(\mathbb{Z}_p\) liegen. Die Elemente des Galoiskörpers \(GF(p^n)\) sind dann die Restklassen von Polynomen modulo eines solchen irreduziblen Polynoms mit dem Grad \(n\). Soll beispielsweise der Galoiskörper \(GF(2^3)\) konstruiert werden, so wird ein solches irreduzibles Polynom \(g(x)= x^3 + x + 1\) mit dem Grad \(n = 3\) über \(\mathbb{Z}_2\) benötigt. Die Elemente des Körpers sind dann die Restklassen der Polynome modulo \(g(x)\), haben entsprechend einen maximalen Grad von \(n - 1 = 2\), eine Form von \(a_1 x^2 + a_2 x^1 + a_3 x^0\) und die möglichen Koeffizienten sind die Elemente von $\mathbb{Z}_2$: \(0\) oder \(1\) \cite{Springer_RS}. Es ergeben sich die folgenden Elemente, welche sich auch als Binärzahlen interpretieren lassen (vgl. Tabelle~\ref{tab:gf8}):
+Die Konstruktion von Galoiskörpern für \(n > 1\) erfolgt durch die Erweiterung von \(\mathbb{Z}_p\) mittels irreduzibler Polynome. Ein irreduzibles Polynom über \(\mathbb{Z}_p\) ist ein Polynom, das sich nicht in Faktoren zerlegen lässt, die ebenfalls in \(\mathbb{Z}_p\) liegen. Die Elemente des Galoiskörpers \(GF(p^n)\) sind dann die Restklassen von Polynomen modulo eines solchen irreduziblen Polynoms mit dem Grad \(n\). Soll beispielsweise der Galoiskörper \(GF(2^3)\) konstruiert werden, so wird ein solches irreduzibles Polynom \(g(x)= x^3 + x + 1\) mit dem Grad \(n = 3\) über \(\mathbb{Z}_2\) benötigt. Die Elemente des Körpers sind dann die Restklassen der Polynome modulo \(g(x)\), haben entsprechend einen maximalen Grad von \(n - 1 = 2\), eine Form von \(a_1 x^2 + a_2 x^1 + a_3 x^0\) und die möglichen Koeffizienten sind die Elemente von $\mathbb{Z}_2$: \(0\) oder \(1\) \cite{Springer_RS}. Es ergeben sich die folgenden Elemente, welche sich auch als Binärzahlen interpretieren lassen (vgl. Tabelle \ref{tab:gf8}):
 
 \begin{table}[H]
     \centering
@@ -47,4 +44,4 @@ Die Konstruktion von Galoiskörpern für \(n > 1\) erfolgt durch die Erweiterung
 
 Die Addition in Galoiskörpern erfolgt komponentenweise (in $\mathbb{Z}_2$ per XOR), während die Multiplikation durch die Division des Produkts zweier Polynome (die beiden Elemente) mit dem irreduziblen Polynom \(g(x)\) und der Verwendung des Restes als Ergebnis definiert ist. Für größere Körper wird die Multiplikation häufig durch die Verwendung einer primitiven Einheitswurzel \(\alpha\) vereinfacht, die als Generator für die Elemente des Körpers dient \cite{Springer_RS}.
 
-Galoiskörper sind besonders nützlich in der Praxis, da sie effiziente Berechnungen ermöglichen. Insbesondere die Körper \(GF(2^n)\) sind aufgrund ihrer einfachen Implementierung in Hardware weit verbreitet. Sie finden Anwendung in Reed-Solomon-Codes, die beispielsweise in DVDs und anderen digitalen Speichermedien zur Fehlerkorrektur eingesetzt werden \cite{Springer_RS}.
+Galoiskörper sind besonders nützlich in der Praxis, da sie effiziente Berechnungen ermöglichen. Insbesondere die Körper \(GF(2^n)\) sind aufgrund ihrer einfachen Implementierung in Hardware weit verbreitet. Sie finden Anwendung in Reed-Solomon-Codes (vgl. Abschnitt \ref{sec:reed_solomon_codes}), die beispielsweise in DVDs und anderen digitalen Speichermedien zur Fehlerkorrektur eingesetzt werden \cite{Springer_RS}.
