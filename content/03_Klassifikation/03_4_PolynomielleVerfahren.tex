@@ -1,12 +1,12 @@
 %!TEX root = ../../main.tex
 
-\chapter{Prüfzifferverfahren auf polynomieller Basis} 
+\chapter{Prüfziffernverfahren auf polynomieller Basis} 
 \label{chap:polynomielle_verfahren}
 
 Die bisher vorgestellten gewichteten Prüfziffernverfahren werden vor allem in der Praxis eingesetzt um Identifikationsnummern wie ISBN, EAN oder Kreditkartennummern abzusichern. Für den Einsatz in der digitalen Datenübertragung, wie zum Beispiel in der Netzwerktechnik, hingegen sind Verfahren auf polynomieller Basis von zentraler Bedeutung. Diese Verfahren nutzen die algebraischen Eigenschaften von Polynomen über endlichen Körpern, um Fehler in Datenströmen zu erkennen und je nach Realisierung sogar zu korrigieren. Die wichtigsten Vertreter dieser Klasse sind \ac{CRC} Verfahren und Reed-Solomon-Codes.
 
 \section{\acl{CRC} (\acs{CRC}) Verfahren} \label{sec:crc_verfahren}
-\ac{CRC}-Verfahren sind eine Klasse von polynomiellen Prüfzifferverfahren, die speziell für die Fehlererkennung in digitalen Datenströmen entwickelt wurden. Somit können in der Praxis mehrere Übertragungsfehler in einer Nachricht erkannt werden. Dies kommt unter anderem im Ethernet-Protokoll oder auch bei der Kompression von ZIP-Archiven oder PNG-Bildern zum Einsatz \cite{Springer_CRC}.
+\ac{CRC}-Verfahren sind eine Klasse von polynomiellen Prüfziffernverfahren, die speziell für die Fehlererkennung in digitalen Datenströmen entwickelt wurden. Somit können in der Praxis mehrere Übertragungsfehler in einer Nachricht erkannt werden. Dies kommt unter anderem im Ethernet-Protokoll oder auch bei der Kompression von ZIP-Archiven oder PNG-Bildern zum Einsatz \cite{Springer_CRC}.
 
 Da \ac{CRC} der Überprüfung binärer Daten dient, verwendet das Verfahren sogenannte binäre Polynome und den endlichen Galoiskörper \({GF}(2) = \) $\mathbb{Z}_2$ mit den Elementen \(0\) und \(1\). Auch die für das Verfahren benötigten Rechenoperationen sind in dem Feld definiert (vgl. Abschnitt \ref{sec:galois_fields}) \cite{Springer_CRC}.
 
