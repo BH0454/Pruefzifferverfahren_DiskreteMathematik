@@ -3,7 +3,7 @@
 \chapter{Gewichtsverfahren}
 \label{chap:Gewichtsverfahren}
 
-Gewichtsverfahren sind eine Klasse von Prüfzifferverfahren, die auf der Zuweisung von Gewichten zu den einzelnen Ziffern einer Zahl basieren. Diese Gewichte werden verwendet, um eine Prüfziffer zu berechnen, die dann zusammen mit der ursprünglichen Zahl übertragen wird. Die Prüfziffer dient dazu, Übertragungsfehler zu erkennen.
+Gewichtsverfahren sind eine Klasse von Prüfziffernverfahren, die auf der Zuweisung von Gewichten zu den einzelnen Ziffern einer Zahl basieren. Diese Gewichte werden verwendet, um eine Prüfziffer zu berechnen, die dann zusammen mit der ursprünglichen Zahl übertragen wird. Die Prüfziffer dient dazu, Übertragungsfehler zu erkennen.
 Die Grundidee dieser Verfahren ist, dass jede Ziffer der Zahl mit einem bestimmten Gewicht multipliziert wird, bevor die Summe aller gewichteten Ziffern gebildet wird. Diese Summe wird dann modulo einer bestimmten Basis (häufig 10 oder 11) genommen, um die Prüfziffer zu erhalten.
 
 \section{EAN-13}
@@ -65,7 +65,7 @@ wobei die folgende Vorschrift für die Prüfziffer gilt: \newline
 \end{equation}
 Durch diesen Aufbau können Einzelfehler und Ziffernvertauschungen erkannt werden. Die mathematische Begründung hierfür lässt sich wie folgt darstellen: Durch die Verwendung der Primzahl 11 als Modul wird die Menge $\mathbb{Z}^*_{11}$ gebildet, die alle Zahlen zwischen 1 und 10 umfasst:
 \begin{equation}
-\mathbb{Z}^*_{11} = \mathbb{Z}_{11} \setminus \{0\} = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\} 
+\mathbb{Z}^*_{11} = \mathbb{Z}_{11} \setminus \{0\} = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}
 \end{equation}
 In dieser Menge sind ausnahmslos alle Gewichte enthalten, die in der Kongruenz (\ref{eq:ISBN-10-Prüfziffer}) verwendet werden. Ein grundlegendes mathematisches Prinzip besagt, dass ein Prüfziffercode mit der Beziehung $\sum_i g_i v_i \equiv 0 \pmod{p}$ genau dann in der Lage ist, alle Einzelfehler an einer Stelle $k$ zu erkennen, wenn das entsprechende Gewicht $g_k$ ein Element der Menge $\mathbb{Z}^*_p$ ist, also teilerfremd zum Modul $p$ ist.
 
@@ -126,7 +126,7 @@ Alternativ lässt sich die Gesamtsumme auch in kompakterer Notation durch eine v
 \begin{equation}
 \label{eq:Luhn-Summe-quersumme}
 S = \sum_{\substack{0 \leq i \leq 13 \\ i\ \text{gerade (von rechts)}}} v_i
-\ + \ 
+\ + \
 \sum_{\substack{0 \leq i \leq 13 \\ i\ \text{ungerade (von rechts)}}}
 \left(
 \begin{cases}
